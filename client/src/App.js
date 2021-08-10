@@ -1,32 +1,24 @@
-import Header from "./components/Header";
-import IngredientList from "./components/IngredientList";
 import { useState } from "react";
+import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import Home from "./routes/Home";
+import UpdatePage from "./routes/UpdatePage";
+import DetailsPage from "./routes/DetailsPage";
+import { IngredientsContextProvider } from "./context/IngredientsContext";
 
-function App() {
-  const [ingredients, setIngredients] = useState([
-    { ingredient: 'apple', qty: '1'},
-    { ingredient: 'banana', qty: '1'},
-    { ingredient: 'orange', qty: '1'},
-  ]);
-
-  const handleAddIngredient = (ingredient, qty, e) => {
-    e.preventDefault();
-    console.log(ingredients)
-    if (ingredient === '' || qty === '') {
-      return
-    } else if (ingredients.some(item => item.ingredient === ingredient)) {
-      return
-    }
-    const newIngredients = ingredients.concat({'ingredient': ingredient, 'qty': qty})
-    setIngredients(newIngredients);
-    console.log(ingredients)
-  }
+const App = () => {
+  
 
   return (
-    <main className="App">
-      <Header />
-      <IngredientList ingredients={ingredients} handleAddIngredient={handleAddIngredient}/>
-    </main>
+    <IngredientsContextProvider>
+      <Router>
+        <Switch>
+          <Route exact path ="/" component = {Home}/>
+          <Route exact path ="/ingredients/:id/update" component = {UpdatePage}/>
+          <Route exact path ="/ingredients/:id" component = {DetailsPage}/>
+        </Switch>
+      </Router>
+    </IngredientsContextProvider>
+    
   );
 }
 
