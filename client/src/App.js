@@ -11,11 +11,15 @@ function App() {
 
   const handleAddIngredient = (ingredient, qty, e) => {
     e.preventDefault();
+    console.log(ingredients)
     if (ingredient === '' || qty === '') {
+      return
+    } else if (ingredients.some(item => item.ingredient === ingredient)) {
       return
     }
     const newIngredients = ingredients.concat({'ingredient': ingredient, 'qty': qty})
     setIngredients(newIngredients);
+    console.log(ingredients)
   }
 
   return (
