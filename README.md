@@ -13,9 +13,9 @@
   - Destructuring
  
  - NodeJS (Express)
-  - API
-  - Routing
-  - DB (PostgreSQL)
+   - API
+   - Routing
+   - DB (PostgreSQL)
 
 ### App Details
 
