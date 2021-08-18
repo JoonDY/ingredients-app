@@ -1,9 +1,9 @@
-import { useState } from "react";
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Home from "./routes/Home";
 import UpdatePage from "./routes/UpdatePage";
 import DetailsPage from "./routes/DetailsPage";
 import { IngredientsContextProvider } from "./context/IngredientsContext";
+import "./App.css"
 
 const App = () => {
   

@@ -1,24 +1,33 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { postIngredients } from "../api/Ingredients";
+import { IngredientsContext } from "../context/IngredientsContext";
 
-const AddIngredient = ({handleAddIngredient}) => {
-  const [ingredient, setIngredient] = useState('');
+
+const AddIngredient = () => {
+  const {addIngredient} = useContext(IngredientsContext);
+  const [name, setName] = useState('');
   const [qty, setQty] = useState('');
 
-  const handleIngredient = (e) => {
-    setIngredient(e.target.value);
+  const handleName = (e) => {
+    setName(e.target.value);
   }
 
   const handleQty = (e) => {
     setQty(e.target.value);
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    postIngredients(name, qty, addIngredient);
+  }
+
   return (
     <div>
       <h3>Add Ingredient</h3>
-      <form onSubmit={(e) => {handleAddIngredient(ingredient, qty, e)}} action="submit">
-        <input type="text" value={ingredient} onChange={handleIngredient}/>
-        <input type="number" value={qty} onChange={handleQty}/>
-        <button type="submit">Add</button>
+      <form action="submit">
+        <input type="text" value={name} onChange={handleName} placeholder="Name"/>
+        <input type="number" value={qty} onChange={handleQty} placeholder="Quantity"/>
+        <button onClick={handleSubmit} type="submit">Add</button>
       </form>
     </div>
   )
