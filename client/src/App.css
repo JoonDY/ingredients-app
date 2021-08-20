@@ -1,6 +1,108 @@
+:root {
+  --color-light: #eee;
+  --color-dark: #333;
+  --color-grey: #555;
+  --color-accent: #17365d;
+
+  --font-p: 1.5rem;
+  --font-h3: 2rem;
+  --font-h2: 3rem;
+  --font-h1: 4rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-weight: 400;
+  text-transform: capitalize;
+  /* border: 1px solid red; */
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Open Sans", "Arial", sans-serif;
+  color: var(--color-dark);
+  line-height: 1.5;
+  background-color: var(--color-light);
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-family: inherit;
+}
+
+a:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+.btn {
+  font-size: inherit;
+  font-family: inherit;
+  display: block;
+}
+
+.btn:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+strong {
+  font-weight: 900;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: center;
+}
+
 .flex {
   display: flex;
   justify-content: left;
   align-items: center;
+}
+
+.navbar {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.nav-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 2rem;
+}
+
+table {
+  margin: 0 auto;
+  width: 50%;
+  text-align: center;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+th,
+tr,
+td {
+  border: 1px solid black;
 }
