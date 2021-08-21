@@ -18,8 +18,6 @@ const AddIngredient = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(name)
-    console.log(category)
     postIngredients(name, category, addIngredient);
   }
 

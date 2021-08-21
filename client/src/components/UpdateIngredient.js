@@ -1,0 +1,74 @@
+import React, {useEffect, useState} from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import { getSingleIngredient, updateIngredient } from '../api/Ingredients';
+
+const UpdateIngredient = () => {
+  const {id} = useParams();
+  let history = useHistory();
+  const [name, setName] = useState('')
+  const [stock, setStock] = useState('')
+  const [category, setCategory] = useState('')
+
+  useEffect(() => {
+    try { 
+      getSingleIngredient(id, setName, setStock, setCategory);
+    } catch(err) {
+      console.log(err)
+    }
+  }, []);
+
+  const handleName = (e) => {
+    setName(e.target.value);
+  }
+
+  const handleCategory = (e) => {
+    setCategory(e.target.value);
+  }
+
+  const handleStock = (e) => {
+    setStock(e.target.checked);
+  }
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    updateIngredient(id, name, stock, category)
+    console.log('success')
+    history.push("/")
+  }
+
+  return (
+    <div>
+      <form action="submit">
+        
+        <div className="flex"> 
+            <div className="flex-column flex-left">
+              <label htmlFor="name">Name</label>
+              <label htmlFor="category">Category</label>
+              <label htmlFor="stock">Stock</label>  
+            </div>
+          <div className="flex-column">
+            <input type="text" id="name" value={name} onChange={handleName} required/>
+            <select id="category" value={category} onChange={handleCategory}>
+              <option disabled>Category</option>
+              <option value="dairy">Dairy</option>
+              <option value="protein">Protein</option>
+              <option value="carb">Carb</option>
+              <option value="snack">Snack</option>
+              <option value="fruit">Fruit</option>
+              <option value="vegetable">Vegetable</option>
+              <option value="drink ">Drink</option>
+              <option value="oil">Oil</option>
+              <option value="condiment">Condiment</option>
+              <option value="spice">Spice</option>
+              <option value="other">Other</option>
+            </select>
+            <input type="checkbox" checked={stock} id="stock" onChange={handleStock}/>
+          </div>
+        </div>
+        <button onClick={handleUpdate} type="submit" >Update</button>
+      </form>
+    </div>
+  )
+}
+
+export default UpdateIngredient

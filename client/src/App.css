@@ -71,14 +71,12 @@ strong {
 .flex-column {
   display: flex;
   flex-direction: column;
-  justify-content: left;
-  align-items: center;
+  justify-content: center;
 }
 
 .flex {
   display: flex;
-  justify-content: left;
-  align-items: center;
+  justify-content: center;
 }
 
 .navbar {
@@ -105,4 +103,13 @@ th,
 tr,
 td {
   border: 1px solid black;
+}
+
+label {
+  display: block;
+  text-align: left;
+}
+
+.flex-left {
+  align-items: left;
 }

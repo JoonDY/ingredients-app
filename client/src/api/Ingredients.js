@@ -11,6 +11,19 @@ export const getIngredients = async(setIngredients) => {
     
 }
 
+export const getSingleIngredient = async(id, setName, setStock, setCategory) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${id}`);
+        const data = await res.json();
+        console.log(data)
+        setName(data.data.ingredients[0].name);
+        setStock(data.data.ingredients[0].in_stock);
+        setCategory(data.data.ingredients[0].category)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 export const postIngredients = async(name, category, addIngredient) => {
     try {
         const req = await fetch(BASE_URL, {
@@ -45,7 +58,7 @@ export const deleteIngredient = async(id) => {
     });
 }
 
-export const updateIngredient = async(id, name, inStock) => {
+export const updateIngredient = async(id, name, stock, category) => {
     await fetch (`${BASE_URL}/${id}`, {
         method: 'PUT',
         headers: {
@@ -54,7 +67,8 @@ export const updateIngredient = async(id, name, inStock) => {
         body: JSON.stringify({
             id,
             name,
-            in_stock: inStock
+            in_stock: stock,
+            category
         })
     });
 }
