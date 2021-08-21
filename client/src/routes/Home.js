@@ -1,14 +1,14 @@
 import React from 'react';
-import Header from "../components/Header";
-import IngredientList from "../components/IngredientList";
+import Header from '../components/Header';
+import IngredientList from '../components/IngredientList';
 
 const Home = () => {
   return (
     <main className="App">
       <Header />
-      <IngredientList/>
+      <IngredientList />
     </main>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

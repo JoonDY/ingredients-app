@@ -1,5 +1,5 @@
-import React from 'react'
-import UpdateIngredient from '../components/UpdateIngredient'
+import React from 'react';
+import UpdateIngredient from '../components/UpdateIngredient';
 
 const UpdatePage = () => {
   return (
@@ -7,7 +7,7 @@ const UpdatePage = () => {
       <h1>Update Restaurant</h1>
       <UpdateIngredient />
     </div>
-  )
-}
+  );
+};
 
-export default UpdatePage
+export default UpdatePage;
