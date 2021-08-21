@@ -59,16 +59,17 @@ export const deleteIngredient = async(id) => {
 }
 
 export const updateIngredient = async(id, name, stock, category) => {
-    await fetch (`${BASE_URL}/${id}`, {
+    const res = await fetch (`${BASE_URL}/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             id,
-            name,
+            name: name.toLowerCase(),
             in_stock: stock,
             category
         })
     });
+    console.log(res)
 }

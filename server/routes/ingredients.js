@@ -56,7 +56,8 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
-    const results = await db.query("UPDATE ingredients SET name = $1, in_stock = $2 WHERE id = $3 RETURNING *", [req.body.name, req.body.in_stock, req.params.id]);
+    console.log(req)
+    const results = await db.query("UPDATE ingredients SET name = $1, in_stock = $2, category = $3 WHERE id = $4 RETURNING *", [req.body.name, req.body.in_stock, req.body.category, req.params.id]);
     res.json({
       status: 'success',
       results: results.rows.length,
