@@ -131,7 +131,7 @@ label {
   align-items: left;
 }
 
-.delete-modal {
+.modal {
   z-index: 1;
   position: fixed;
   top: 0;
@@ -141,10 +141,23 @@ label {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.delete-modal-content {
+.modal-content {
   background-color: #fff;
   margin: 25% auto;
   width: 25%;
   padding: 2rem;
   border-radius: 5px;
+}
+
+form {
+  width: 15%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form-error-message {
+  color: red;
+  font-weight: 700;
 }

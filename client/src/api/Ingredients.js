@@ -1,10 +1,17 @@
 const BASE_URL = 'http://localhost:3001/api/v1/ingredients';
 
-export const getIngredients = async (setIngredients) => {
+export const getIngredients = async (setIngredients, handleSortPriority) => {
   try {
     const res = await fetch(BASE_URL);
     const data = await res.json();
-    setIngredients(data.data.ingredients);
+
+    /* Default Sort Ingredients by Priority */
+    const ingredients = data.data.ingredients;
+    const sortedIngredients = [...ingredients].sort((a, b) => {
+      return -1 * (a.priority - b.priority);
+    });
+
+    setIngredients(sortedIngredients);
   } catch (err) {
     console.log(err);
   }

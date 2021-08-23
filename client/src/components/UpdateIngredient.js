@@ -37,7 +37,6 @@ const UpdateIngredient = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
     updateIngredient(id, name, stock, category, priority);
-    console.log('success');
     history.push('/');
   };
 

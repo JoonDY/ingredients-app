@@ -4,21 +4,29 @@ import { useContext, useEffect, useState } from 'react';
 import { getIngredients } from '../api/Ingredients';
 import { IngredientsContext } from '../context/IngredientsContext';
 import { deleteIngredient } from '../api/Ingredients';
-import DeletePopup from './DeletePopup';
+import Popup from './Popup';
+import SearchBar from './SearchBar';
 
 const IngredientList = () => {
   const { ingredients, setIngredients } = useContext(IngredientsContext);
   const [sortCategory, setSortCategory] = useState('asc');
   const [sortName, setSortName] = useState('asc');
   const [sortStock, setSortStock] = useState('asc');
+  const [sortPriority, setSortPriority] = useState('asc');
   const [popup, setPopup] = useState({
-    show: false,
+    showDelete: false,
     id: null,
+  });
+  const [searchParams, setSearchParams] = useState({
+    name: '',
+    category: '',
+    stock: '',
+    priority: '',
   });
 
   useEffect(() => {
     try {
-      getIngredients(setIngredients);
+      getIngredients(setIngredients, ingredients, handleSortPriority);
     } catch (err) {
       console.log(err);
     }
@@ -31,7 +39,7 @@ const IngredientList = () => {
 
   const deleteConfirmation = (id) => {
     setPopup({
-      show: true,
+      showDelete: true,
       id,
     });
   };
@@ -44,7 +52,7 @@ const IngredientList = () => {
       })
     );
     setPopup({
-      show: false,
+      showDelete: false,
       id: null,
     });
   };
@@ -88,15 +96,30 @@ const IngredientList = () => {
     setSortStock(sortStock === 'asc' ? 'desc' : 'asc');
   };
 
+  const handleSortPriority = () => {
+    const sortedIngredients = [...ingredients].sort((a, b) => {
+      const isReverse = sortPriority === 'asc' ? 1 : -1;
+      return isReverse * (a.priority - b.priority);
+    });
+    setIngredients(sortedIngredients);
+    setSortPriority(sortPriority === 'asc' ? 'desc' : 'asc');
+  };
+
+  // const handleFilter = (item) => {
+  //   let result =
+  // }
+
   return (
     <div>
       <AddIngredient />
-      {popup.show && (
-        <DeletePopup
+      {popup.showDelete && (
+        <Popup
+          message="Confirm Delete?"
           handleDeleteTrue={handleDeleteTrue}
           handleDeleteFalse={handleDeleteFalse}
         />
       )}
+      <SearchBar setSearchParams={setSearchParams} />
       <table>
         <tbody>
           <tr>
@@ -119,21 +142,42 @@ const IngredientList = () => {
               </button>
             </th>
             <th>
-              Priority<button className="btn">Sort</button>
+              Priority
+              <button className="btn" onClick={handleSortPriority}>
+                Sort
+              </button>
             </th>
-            <th></th>
           </tr>
           {ingredients &&
-            ingredients.map((item) => {
-              return (
-                <IngredientItem
-                  key={item.id}
-                  ingredient={item}
-                  handleDelete={handleDelete}
-                  handleUpdateStock={handleUpdateStock}
-                />
-              );
-            })}
+            ingredients
+              .filter((item) => {
+                return item.name.includes(searchParams.name);
+              })
+              .filter((item) => {
+                return item.category.includes(searchParams.category);
+              })
+              .filter((item) => {
+                if (searchParams.priority) {
+                  return item.priority === parseInt(searchParams.priority);
+                }
+                return true;
+              })
+              .filter((item) => {
+                if (searchParams.stock) {
+                  return item.in_stock == searchParams.stock;
+                }
+                return true;
+              })
+              .map((item) => {
+                return (
+                  <IngredientItem
+                    key={item.id}
+                    ingredient={item}
+                    handleDelete={handleDelete}
+                    handleUpdateStock={handleUpdateStock}
+                  />
+                );
+              })}
         </tbody>
       </table>
     </div>
