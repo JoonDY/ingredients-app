@@ -48,6 +48,7 @@ const UpdateIngredient = () => {
             <label htmlFor="name">Name</label>
             <label htmlFor="category">Category</label>
             <label htmlFor="stock">Stock</label>
+            <label htmlFor="priority">Priority</label>
           </div>
           <div className="flex-column">
             <input
@@ -79,7 +80,12 @@ const UpdateIngredient = () => {
               id="stock"
               onChange={handleStock}
             />
-            <select value={priority} onChange={handlePriority} required>
+            <select
+              id="priority"
+              value={priority}
+              onChange={handlePriority}
+              required
+            >
               <option value="" disabled>
                 Perishable
               </option>

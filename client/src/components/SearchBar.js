@@ -58,10 +58,11 @@ const SearchBar = ({ setSearchParams }) => {
     }
 
     if (e.type === 'stock') {
+      const bool = e.value === 'true' ? true : e.value === 'false' ? false : '';
       setSearchParams({
         name,
         category,
-        stock: e.value,
+        stock: bool,
         priority,
       });
     }
@@ -101,9 +102,9 @@ const SearchBar = ({ setSearchParams }) => {
       </select>
 
       <select value={stock} onChange={handleStock} required>
-        <option value="">In Stock</option>
-        <option value="1">Yes</option>
-        <option value="0">No</option>
+        <option value="">Stock</option>
+        <option value="true">Yes</option>
+        <option value="false"> No</option>
       </select>
 
       <select value={priority} onChange={handlePriority} required>

@@ -76,7 +76,14 @@ const AddIngredient = () => {
     e.preventDefault();
     const valid = validateForm();
     if (valid) {
-      postIngredients(name, category, stock, priority, addIngredient);
+      postIngredients(
+        name,
+        category,
+        stock,
+        priority,
+        addIngredient,
+        setFormError
+      );
       resetState();
       setFormError('');
     } else {

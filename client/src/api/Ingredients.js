@@ -27,7 +27,6 @@ export const getSingleIngredient = async (
   try {
     const res = await fetch(`${BASE_URL}/${id}`);
     const data = await res.json();
-    console.log(data);
     setName(data.data.ingredients[0].name);
     setStock(data.data.ingredients[0].in_stock);
     setCategory(data.data.ingredients[0].category);
@@ -42,7 +41,8 @@ export const postIngredients = async (
   category,
   stock,
   priority,
-  addIngredient
+  addIngredient,
+  setFormError
 ) => {
   try {
     const req = await fetch(BASE_URL, {
@@ -60,7 +60,12 @@ export const postIngredients = async (
     const res = await req.json();
     if (req.status === 500) {
       if (res.err.code === '23505') {
-        alert('Item already exists.');
+        setFormError({
+          nameError: 'Ingredient already exists',
+          categoryError: '',
+          stockError: '',
+          priorityError: '',
+        });
       }
     } else {
       addIngredient(res.data.ingredients[0]);

@@ -163,8 +163,8 @@ const IngredientList = () => {
                 return true;
               })
               .filter((item) => {
-                if (searchParams.stock) {
-                  return item.in_stock == searchParams.stock;
+                if (!(searchParams.stock === '')) {
+                  return item.in_stock === searchParams.stock;
                 }
                 return true;
               })
