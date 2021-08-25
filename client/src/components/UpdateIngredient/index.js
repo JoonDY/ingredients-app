@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { getSingleIngredient, updateIngredient } from '../api/Ingredients';
+import { getSingleIngredient, updateIngredient } from '../../api/Ingredients';
 
 const UpdateIngredient = () => {
   const { id } = useParams();

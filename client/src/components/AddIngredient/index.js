@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
-import { postIngredients } from '../api/Ingredients';
-import { IngredientsContext } from '../context/IngredientsContext';
+import { postIngredients } from '../../api/Ingredients';
+import { IngredientsContext } from '../../context/IngredientsContext';
 
 const AddIngredient = () => {
   const { addIngredient } = useContext(IngredientsContext);

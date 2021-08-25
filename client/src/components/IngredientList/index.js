@@ -1,11 +1,11 @@
-import AddIngredient from './AddIngredient';
-import IngredientItem from './IngredientItem';
+import AddIngredient from '../AddIngredient';
+import IngredientItem from '../IngredientItem';
 import { useContext, useEffect, useState } from 'react';
-import { getIngredients } from '../api/Ingredients';
-import { IngredientsContext } from '../context/IngredientsContext';
-import { deleteIngredient } from '../api/Ingredients';
-import Popup from './Popup';
-import SearchBar from './SearchBar';
+import { getIngredients } from '../../api/Ingredients';
+import { IngredientsContext } from '../../context/IngredientsContext';
+import { deleteIngredient } from '../../api/Ingredients';
+import Popup from '../Popup';
+import SearchBar from '../SearchBar';
 
 const IngredientList = () => {
   const { ingredients, setIngredients } = useContext(IngredientsContext);

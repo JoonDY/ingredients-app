@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { updateIngredient } from '../api/Ingredients';
+import { updateIngredient } from '../../api/Ingredients';
 import { useHistory } from 'react-router-dom';
 
 const IngredientItem = ({ ingredient, handleDelete, handleUpdateStock }) => {

@@ -1,9 +1,11 @@
 import React from 'react';
+import { HeaderContainer } from './styles';
+import { H1 } from '../../shared/globals';
 
 const Header = () => {
   return (
-    <header className="header">
-      <h1>Ingredients</h1>
+    <HeaderContainer>
+      <H1>Ingredient List</H1>
       {/* <nav className='navbar'>
         <ul className='nav-list'>
           <li>Ingredients</li>
@@ -11,7 +13,7 @@ const Header = () => {
           <li>Shopping List</li>
         </ul>
       </nav> */}
-    </header>
+    </HeaderContainer>
   );
 };
 

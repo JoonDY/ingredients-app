@@ -4,7 +4,7 @@ import IngredientList from '../components/IngredientList';
 
 const Home = () => {
   return (
-    <main className="App">
+    <main>
       <Header />
       <IngredientList />
     </main>
