@@ -46,6 +46,7 @@ export const Form = styled.form`
 export const ErrorMessage = styled.p`
   color: red;
   font-weight: 700;
+  font-size: .75rem;
 }
 `;
 

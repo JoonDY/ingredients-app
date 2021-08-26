@@ -1,4 +1,10 @@
 import { useState } from 'react';
+import {
+  SearchInput,
+  SearchSelect,
+  SearchBarContainer,
+  FilterContainer,
+} from './styles';
 
 const SearchBar = ({ setSearchParams }) => {
   const [name, setName] = useState('');
@@ -78,45 +84,47 @@ const SearchBar = ({ setSearchParams }) => {
   };
 
   return (
-    <div>
-      <input
+    <SearchBarContainer>
+      <SearchInput
         type="text"
         value={name}
         onChange={handleName}
         placeholder="Search Ingredient"
         required
       />
-      <select value={category} onChange={handleCategory} required>
-        <option value="" disabled>
-          Category
-        </option>
-        <option value="dairy">Dairy</option>
-        <option value="protein">Protein</option>
-        <option value="carb">Carb</option>
-        <option value="snack">Snack</option>
-        <option value="fruit">Fruit</option>
-        <option value="vegetable">Vegetable</option>
-        <option value="drink ">Drink</option>
-        <option value="oil">Oil</option>
-        <option value="condiment">Condiment</option>
-        <option value="spice">Spice</option>
-        <option value="other">Other</option>
-      </select>
+      <FilterContainer>
+        <SearchSelect value={category} onChange={handleCategory} required>
+          <option value="" disabled>
+            Select Category
+          </option>
+          <option value="dairy">Dairy</option>
+          <option value="protein">Protein</option>
+          <option value="carb">Carb</option>
+          <option value="snack">Snack</option>
+          <option value="fruit">Fruit</option>
+          <option value="vegetable">Vegetable</option>
+          <option value="drink ">Drink</option>
+          <option value="oil">Oil</option>
+          <option value="condiment">Condiment</option>
+          <option value="spice">Spice</option>
+          <option value="other">Other</option>
+        </SearchSelect>
 
-      <select value={stock} onChange={handleStock} required>
-        <option value="">Stock</option>
-        <option value="true">Yes</option>
-        <option value="false"> No</option>
-      </select>
+        <SearchSelect value={stock} onChange={handleStock} required>
+          <option value="">Select Stock</option>
+          <option value="true">Yes</option>
+          <option value="false"> No</option>
+        </SearchSelect>
 
-      <select value={priority} onChange={handlePriority} required>
-        <option value="">Perishable</option>
-        <option value="3">1 Week</option>
-        <option value="2">1 Month</option>
-        <option value="1">6 Months</option>
-        <option value="0">1 Year+</option>
-      </select>
-    </div>
+        <SearchSelect value={priority} onChange={handlePriority} required>
+          <option value="">Select Priority</option>
+          <option value="3">1 Week</option>
+          <option value="2">1 Month</option>
+          <option value="1">6 Months</option>
+          <option value="0">1 Year+</option>
+        </SearchSelect>
+      </FilterContainer>
+    </SearchBarContainer>
   );
 };
 

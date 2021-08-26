@@ -6,6 +6,7 @@ import { IngredientsContext } from '../../context/IngredientsContext';
 import { deleteIngredient } from '../../api/Ingredients';
 import Popup from '../Popup';
 import SearchBar from '../SearchBar';
+import { ModalWrapper } from '../../shared/globals';
 
 const IngredientList = () => {
   const { ingredients, setIngredients } = useContext(IngredientsContext);
@@ -107,7 +108,6 @@ const IngredientList = () => {
 
   return (
     <div>
-      <AddIngredient />
       {popup.showDelete && (
         <Popup
           message="Confirm Delete?"
@@ -116,6 +116,7 @@ const IngredientList = () => {
         />
       )}
       <SearchBar setSearchParams={setSearchParams} />
+      <AddIngredient />
       <table>
         <tbody>
           <tr>

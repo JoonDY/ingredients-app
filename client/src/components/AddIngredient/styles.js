@@ -3,8 +3,9 @@ import { Button } from '../../shared/globals';
 import { theme } from '../../shared/theme';
 
 export const AddButton = styled(Button)`
+  margin-top: 1rem;
   align-self: center;
-  min-width: 10ch;
+  min-width: 15ch;
   max-width: 5rem;
   background-color: ${theme.color.accent};
   padding: 0.25rem 0.75rem;
@@ -18,14 +19,17 @@ export const AddButton = styled(Button)`
 `;
 
 export const AddIngredientButton = styled(Button)`
-  width: 50%;
-  margin: 0 auto;
-  background-color: ${theme.color.white};
+  width: 20ch;
+  margin: 1rem auto;
+  padding: 0.25rem 0;
+  background-color: ${theme.color.accent};
   font-weight: 900;
-  color: ${theme.color.accent2};
-  border-radius: 0;
+  color: ${theme.color.dark};
+  border-radius: 25px;
+  border: 2px solid transparent;
 
   &:hover {
-    border-bottom: 2px solid ${theme.color.accent};
+    border: 2px solid ${theme.color.accent};
+    background-color: ${theme.color.white};
   }
 `;
