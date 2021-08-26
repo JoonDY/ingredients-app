@@ -1,6 +1,14 @@
 import { useContext, useState } from 'react';
 import { postIngredients } from '../../api/Ingredients';
 import { IngredientsContext } from '../../context/IngredientsContext';
+import {
+  Form,
+  ModalContent,
+  ModalWrapper,
+  Input,
+  Select,
+} from '../../shared/globals';
+import { AddButton, AddIngredientButton } from './styles';
 
 const AddIngredient = () => {
   const { addIngredient } = useContext(IngredientsContext);
@@ -8,6 +16,7 @@ const AddIngredient = () => {
   const [category, setCategory] = useState('');
   const [stock, setStock] = useState('');
   const [priority, setPriority] = useState('');
+  const [popup, setPopup] = useState(false);
   const [formError, setFormError] = useState({
     nameError: '',
     categoryError: '',
@@ -15,20 +24,12 @@ const AddIngredient = () => {
     priorityError: '',
   });
 
-  const handleName = (e) => {
-    setName(e.target.value);
-  };
+  const handleClosePopup = (e) => {
+    if (e.target !== e.currentTarget) {
+      return;
+    }
 
-  const handleCategory = (e) => {
-    setCategory(e.target.value);
-  };
-
-  const handleStock = (e) => {
-    setStock(e.target.value);
-  };
-
-  const handlePriority = (e) => {
-    setPriority(e.target.value);
+    setPopup(false);
   };
 
   const validateForm = () => {
@@ -86,71 +87,103 @@ const AddIngredient = () => {
       );
       resetState();
       setFormError('');
+      setPopup(false);
     } else {
     }
   };
 
   return (
     <div>
-      <form action="submit">
-        <input
-          type="text"
-          value={name}
-          onChange={handleName}
-          placeholder="Name"
-          required
-        />
-        {formError.nameError && (
-          <p className="form-error-message">{formError.nameError}</p>
-        )}
-        <select value={category} onChange={handleCategory} required>
-          <option value="" disabled>
-            Category
-          </option>
-          <option value="dairy">Dairy</option>
-          <option value="protein">Protein</option>
-          <option value="carb">Carb</option>
-          <option value="snack">Snack</option>
-          <option value="fruit">Fruit</option>
-          <option value="vegetable">Vegetable</option>
-          <option value="drink ">Drink</option>
-          <option value="oil">Oil</option>
-          <option value="condiment">Condiment</option>
-          <option value="spice">Spice</option>
-          <option value="other">Other</option>
-        </select>
-        {formError.categoryError && (
-          <p className="form-error-message">{formError.categoryError}</p>
-        )}
+      <div>
+        <AddIngredientButton
+          onClick={() => {
+            setPopup(true);
+          }}
+        >
+          + Add Ingredient
+        </AddIngredientButton>
+        {popup && (
+          <ModalWrapper onClick={handleClosePopup}>
+            <ModalContent>
+              <Form action="submit">
+                <Input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Name"
+                  required
+                />
+                {formError.nameError && (
+                  <p className="form-error-message">{formError.nameError}</p>
+                )}
+                <Select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  required
+                >
+                  <option value="" disabled>
+                    Category
+                  </option>
+                  <option value="dairy">Dairy</option>
+                  <option value="protein">Protein</option>
+                  <option value="carb">Carb</option>
+                  <option value="snack">Snack</option>
+                  <option value="fruit">Fruit</option>
+                  <option value="vegetable">Vegetable</option>
+                  <option value="drink ">Drink</option>
+                  <option value="oil">Oil</option>
+                  <option value="condiment">Condiment</option>
+                  <option value="spice">Spice</option>
+                  <option value="other">Other</option>
+                </Select>
+                {formError.categoryError && (
+                  <p className="form-error-message">
+                    {formError.categoryError}
+                  </p>
+                )}
 
-        <select value={stock} onChange={handleStock} required>
-          <option value="" disabled>
-            In Stock
-          </option>
-          <option value={true}>Yes</option>
-          <option value={false}>No</option>
-        </select>
-        {formError.stockError && (
-          <p className="form-error-message">{formError.stockError}</p>
-        )}
+                <Select
+                  value={stock}
+                  onChange={(e) => setStock(e.target.value)}
+                  required
+                >
+                  <option value="" disabled>
+                    In Stock
+                  </option>
+                  <option value={true}>Yes</option>
+                  <option value={false}>No</option>
+                </Select>
+                {formError.stockError && (
+                  <p className="form-error-message">{formError.stockError}</p>
+                )}
 
-        <select value={priority} onChange={handlePriority} required>
-          <option value="" disabled>
-            Perishable
-          </option>
-          <option value="3">1 Week</option>
-          <option value="2">1 Month</option>
-          <option value="1">6 Months</option>
-          <option value="0">1 Year+</option>
-        </select>
-        {formError.priorityError && (
-          <p className="form-error-message">{formError.priorityError}</p>
-        )}
+                <Select
+                  value={priority}
+                  onChange={(e) => setPriority(e.target.value)}
+                  required
+                >
+                  <option value="" disabled>
+                    Perishable
+                  </option>
+                  <option value="3">1 Week</option>
+                  <option value="2">1 Month</option>
+                  <option value="1">6 Months</option>
+                  <option value="0">1 Year+</option>
+                </Select>
+                {formError.priorityError && (
+                  <p className="form-error-message">
+                    {formError.priorityError}
+                  </p>
+                )}
 
-        <button className="btn" onClick={handleSubmit} type="submit">
-          Add
-        </button>
-      </form>
+                <AddButton className="btn" onClick={handleSubmit} type="submit">
+                  Add
+                </AddButton>
+              </Form>
+            </ModalContent>
+          </ModalWrapper>
+        )}
+      </div>
     </div>
   );
 };

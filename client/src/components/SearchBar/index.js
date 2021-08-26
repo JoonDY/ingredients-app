@@ -87,7 +87,9 @@ const SearchBar = ({ setSearchParams }) => {
         required
       />
       <select value={category} onChange={handleCategory} required>
-        <option value="">Category</option>
+        <option value="" disabled>
+          Category
+        </option>
         <option value="dairy">Dairy</option>
         <option value="protein">Protein</option>
         <option value="carb">Carb</option>

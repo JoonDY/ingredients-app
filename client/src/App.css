@@ -15,6 +15,7 @@ html {
 body {
   font-family: 'Open Sans', 'Arial', sans-serif;
   line-height: 1.5;
+  background-color: #fff;
 }
 
 ul {
@@ -37,41 +38,8 @@ img {
   margin: 0 auto;
 }
 
-.btn {
-  font-size: inherit;
-  font-family: inherit;
-}
-
-.btn:hover {
-  opacity: 0.8;
-  cursor: pointer;
-}
-
 strong {
   font-weight: 900;
-}
-
-.flex-column {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.flex {
-  display: flex;
-  justify-content: center;
-}
-
-.navbar {
-  width: 80%;
-  margin: 0 auto;
-}
-
-.nav-list {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
 }
 
 table {
@@ -86,11 +54,19 @@ table {
   table {
     width: 75%;
   }
+
+  html {
+    font-size: 0.75rem;
+  }
 }
 
 @media (max-width: 550px) {
   table {
     width: 95%;
+  }
+
+  html {
+    font-size: 0.5rem;
   }
 }
 
@@ -113,35 +89,4 @@ label {
 
 .flex-left {
   align-items: left;
-}
-
-.modal {
-  z-index: 1;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal-content {
-  background-color: #fff;
-  margin: 25% auto;
-  width: 25%;
-  padding: 2rem;
-  border-radius: 5px;
-}
-
-form {
-  width: 15%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.form-error-message {
-  color: red;
-  font-weight: 700;
 }

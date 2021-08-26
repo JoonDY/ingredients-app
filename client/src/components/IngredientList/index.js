@@ -105,10 +105,6 @@ const IngredientList = () => {
     setSortPriority(sortPriority === 'asc' ? 'desc' : 'asc');
   };
 
-  // const handleFilter = (item) => {
-  //   let result =
-  // }
-
   return (
     <div>
       <AddIngredient />
