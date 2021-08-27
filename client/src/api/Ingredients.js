@@ -1,6 +1,6 @@
 const BASE_URL = 'http://localhost:3001/api/v1/ingredients';
 
-export const getIngredients = async (setIngredients, handleSortPriority) => {
+export const getIngredients = async (setIngredients) => {
   try {
     const res = await fetch(BASE_URL);
     const data = await res.json();

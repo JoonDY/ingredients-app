@@ -3,7 +3,6 @@ import { Button } from '../../shared/globals';
 import { theme } from '../../shared/theme';
 
 export const AddButton = styled(Button)`
-  margin-top: 1rem;
   align-self: center;
   min-width: 15ch;
   max-width: 5rem;

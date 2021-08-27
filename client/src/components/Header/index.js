@@ -5,7 +5,7 @@ import { H1 } from '../../shared/globals';
 const Header = () => {
   return (
     <HeaderContainer>
-      <H1>Ingredient List</H1>
+      <H1>Ingredients</H1>
       {/* <nav className='navbar'>
         <ul className='nav-list'>
           <li>Ingredients</li>
