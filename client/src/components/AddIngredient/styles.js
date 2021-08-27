@@ -27,9 +27,11 @@ export const AddIngredientButton = styled(Button)`
   color: ${theme.color.dark};
   border-radius: 25px;
   border: 2px solid transparent;
+  transition: all 0.1s ease-in-out;
 
   &:hover {
     border: 2px solid ${theme.color.accent};
     background-color: ${theme.color.white};
+    transform: scale(1.01);
   }
 `;

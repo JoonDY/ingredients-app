@@ -13,10 +13,10 @@ const SearchBar = ({ setSearchParams }) => {
   const [priority, setPriority] = useState('');
 
   const handleName = (e) => {
-    setName(e.target.value);
+    setName(e.target.value.toLowerCase());
     setSearch({
       type: 'name',
-      value: e.target.value,
+      value: e.target.value.toLowerCase(),
     });
   };
 
@@ -64,11 +64,10 @@ const SearchBar = ({ setSearchParams }) => {
     }
 
     if (e.type === 'stock') {
-      const bool = e.value === 'true' ? true : e.value === 'false' ? false : '';
       setSearchParams({
         name,
         category,
-        stock: bool,
+        stock: e.value,
         priority,
       });
     }
@@ -94,9 +93,7 @@ const SearchBar = ({ setSearchParams }) => {
       />
       <FilterContainer>
         <SearchSelect value={category} onChange={handleCategory} required>
-          <option value="" disabled>
-            Select Category
-          </option>
+          <option value="">Select Category</option>
           <option value="dairy">Dairy</option>
           <option value="protein">Protein</option>
           <option value="carb">Carb</option>
