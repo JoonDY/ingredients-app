@@ -31,6 +31,7 @@ const AddIngredient = () => {
     }
 
     setPopup(false);
+    resetState();
   };
 
   const validateForm = () => {
@@ -72,6 +73,12 @@ const AddIngredient = () => {
     setCategory('');
     setStock('');
     setPriority('');
+    setFormError({
+      nameError: '',
+      categoryError: '',
+      stockError: '',
+      priorityError: '',
+    });
   };
 
   const handleSubmit = (e) => {
@@ -84,11 +91,11 @@ const AddIngredient = () => {
         stock,
         priority,
         addIngredient,
-        setFormError
+        setFormError,
+        setPopup
       );
       resetState();
       setFormError('');
-      setPopup(false);
     } else {
     }
   };
@@ -109,7 +116,7 @@ const AddIngredient = () => {
               <Input
                 type="text"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setName(e.target.value.toLowerCase())}
                 placeholder="Name"
                 required
               />

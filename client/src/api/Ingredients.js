@@ -42,7 +42,8 @@ export const postIngredients = async (
   stock,
   priority,
   addIngredient,
-  setFormError
+  setFormError,
+  setPopUp
 ) => {
   try {
     const req = await fetch(BASE_URL, {
@@ -69,6 +70,7 @@ export const postIngredients = async (
       }
     } else {
       addIngredient(res.data.ingredients[0]);
+      setPopUp(false);
     }
   } catch (err) {
     console.log(err);
@@ -82,7 +84,7 @@ export const deleteIngredient = async (id) => {
 };
 
 export const updateIngredient = async (id, name, stock, category, priority) => {
-  const res = await fetch(`${BASE_URL}/${id}`, {
+  await fetch(`${BASE_URL}/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
