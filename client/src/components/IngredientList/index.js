@@ -6,14 +6,15 @@ import { IngredientsContext } from '../../context/IngredientsContext';
 import { deleteIngredient } from '../../api/Ingredients';
 import Popup from '../Popup';
 import SearchBar from '../SearchBar';
-import { ModalWrapper } from '../../shared/globals';
+import { MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md';
+import { Span, IngredientTable, IngredientTHead, IngredientTH } from './styles';
 
 const IngredientList = () => {
   const { ingredients, setIngredients } = useContext(IngredientsContext);
-  const [sortCategory, setSortCategory] = useState('asc');
-  const [sortName, setSortName] = useState('asc');
-  const [sortStock, setSortStock] = useState('asc');
-  const [sortPriority, setSortPriority] = useState('asc');
+  const [sortCategory, setSortCategory] = useState('');
+  const [sortName, setSortName] = useState('');
+  const [sortStock, setSortStock] = useState('');
+  const [sortPriority, setSortPriority] = useState('');
   const [popup, setPopup] = useState({
     showDelete: false,
     id: null,
@@ -72,38 +73,46 @@ const IngredientList = () => {
 
   const handleSortName = () => {
     const sortedIngredients = [...ingredients].sort((a, b) => {
-      const isReverse = sortName === 'asc' ? 1 : -1;
+      const isReverse = sortName === '' || sortName === 'asc' ? 1 : -1;
       return isReverse * a.name.localeCompare(b.name);
     });
     setIngredients(sortedIngredients);
-    setSortName(sortName === 'asc' ? 'desc' : 'asc');
+    setSortName(
+      sortName === '' ? 'desc' : sortName === 'desc' ? 'asc' : 'desc'
+    );
   };
 
   const handleSortCategory = () => {
     const sortedIngredients = [...ingredients].sort((a, b) => {
-      const isReverse = sortCategory === 'asc' ? 1 : -1;
+      const isReverse = sortCategory === '' || sortCategory === 'asc' ? 1 : -1;
       return isReverse * a.category.localeCompare(b.category);
     });
     setIngredients(sortedIngredients);
-    setSortCategory(sortCategory === 'asc' ? 'desc' : 'asc');
+    setSortCategory(
+      sortCategory === '' ? 'desc' : sortCategory === 'desc' ? 'asc' : 'desc'
+    );
   };
 
   const handleSortStock = () => {
     const sortedIngredients = [...ingredients].sort((a, b) => {
-      const isReverse = sortStock === 'asc' ? 1 : -1;
+      const isReverse = sortStock === '' || sortStock === 'asc' ? -1 : 1;
       return isReverse * (a.in_stock - b.in_stock);
     });
     setIngredients(sortedIngredients);
-    setSortStock(sortStock === 'asc' ? 'desc' : 'asc');
+    setSortStock(
+      sortStock === '' ? 'desc' : sortStock === 'desc' ? 'asc' : 'desc'
+    );
   };
 
   const handleSortPriority = () => {
     const sortedIngredients = [...ingredients].sort((a, b) => {
-      const isReverse = sortPriority === 'asc' ? 1 : -1;
+      const isReverse = sortPriority === '' || sortPriority === 'asc' ? 1 : -1;
       return isReverse * (a.priority - b.priority);
     });
     setIngredients(sortedIngredients);
-    setSortPriority(sortPriority === 'asc' ? 'desc' : 'asc');
+    setSortPriority(
+      sortPriority === '' ? 'desc' : sortPriority === 'desc' ? 'asc' : 'desc'
+    );
   };
 
   return (
@@ -117,34 +126,61 @@ const IngredientList = () => {
       )}
       <SearchBar setSearchParams={setSearchParams} />
       <AddIngredient />
-      <table>
-        <tbody>
+      <IngredientTable>
+        <IngredientTHead>
           <tr>
-            <th>
+            <IngredientTH pointer onClick={handleSortName}>
               Name
-              <button className="btn" onClick={handleSortName}>
-                Sort
-              </button>
-            </th>
-            <th>
+              <Span>
+                {sortName === 'desc' ? (
+                  <MdKeyboardArrowUp />
+                ) : sortName === 'asc' ? (
+                  <MdKeyboardArrowDown style={{ verticalAlign: 'bottom' }} />
+                ) : (
+                  ''
+                )}
+              </Span>
+            </IngredientTH>
+            <IngredientTH pointer onClick={handleSortCategory}>
               Category
-              <button className="btn" onClick={handleSortCategory}>
-                Sort
-              </button>
-            </th>
-            <th>
+              <Span>
+                {sortCategory === 'desc' ? (
+                  <MdKeyboardArrowUp />
+                ) : sortCategory === 'asc' ? (
+                  <MdKeyboardArrowDown style={{ verticalAlign: 'bottom' }} />
+                ) : (
+                  ''
+                )}
+              </Span>
+            </IngredientTH>
+            <IngredientTH center pointer onClick={handleSortStock}>
               Stock
-              <button className="btn" onClick={handleSortStock}>
-                Sort
-              </button>
-            </th>
-            <th>
+              <Span>
+                {sortStock === 'desc' ? (
+                  <MdKeyboardArrowUp />
+                ) : sortStock === 'asc' ? (
+                  <MdKeyboardArrowDown style={{ verticalAlign: 'bottom' }} />
+                ) : (
+                  ''
+                )}
+              </Span>
+            </IngredientTH>
+            <IngredientTH center pointer onClick={handleSortPriority}>
               Priority
-              <button className="btn" onClick={handleSortPriority}>
-                Sort
-              </button>
-            </th>
+              <Span>
+                {sortPriority === 'asc' ? (
+                  <MdKeyboardArrowUp />
+                ) : sortPriority === 'desc' ? (
+                  <MdKeyboardArrowDown style={{ verticalAlign: 'bottom' }} />
+                ) : (
+                  ''
+                )}
+              </Span>
+            </IngredientTH>
+            <IngredientTH></IngredientTH>
           </tr>
+        </IngredientTHead>
+        <tbody>
           {ingredients &&
             ingredients
               .filter((item) => {
@@ -161,7 +197,7 @@ const IngredientList = () => {
               })
               .filter((item) => {
                 if (!(searchParams.stock === '')) {
-                  return item.in_stock === searchParams.stock;
+                  return item.in_stock.toString() === searchParams.stock;
                 }
                 return true;
               })
@@ -176,7 +212,7 @@ const IngredientList = () => {
                 );
               })}
         </tbody>
-      </table>
+      </IngredientTable>
     </div>
   );
 };

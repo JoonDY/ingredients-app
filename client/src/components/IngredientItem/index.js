@@ -1,6 +1,14 @@
 import { useState } from 'react';
 import { updateIngredient } from '../../api/Ingredients';
 import { useHistory } from 'react-router-dom';
+import {
+  IngredientTD,
+  IngredientTR,
+  DeleteButton,
+  UpdateButton,
+} from './styles';
+import { FaRegEdit } from 'react-icons/fa';
+import { MdDelete } from 'react-icons/md';
 
 const IngredientItem = ({ ingredient, handleDelete, handleUpdateStock }) => {
   const { id, name, category, priority } = ingredient;
@@ -10,7 +18,7 @@ const IngredientItem = ({ ingredient, handleDelete, handleUpdateStock }) => {
   const handleStock = (e) => {
     e.stopPropagation();
     setStock(e.target.checked);
-    updateIngredient(id, name, e.target.checked, category);
+    updateIngredient(id, name, e.target.checked, category, priority);
     handleUpdateStock(id, e.target.checked, e);
   };
 
@@ -24,38 +32,45 @@ const IngredientItem = ({ ingredient, handleDelete, handleUpdateStock }) => {
   };
 
   return (
-    <tr>
-      <td onClick={handleIngredientDetail}>{name}</td>
-      <td onClick={handleIngredientDetail}>{category}</td>
-      <td>
-        <input
-          type="checkbox"
-          checked={stock}
-          onChange={(e) => {
-            handleStock(e);
-          }}
-        />
-      </td>
-      <td>{'!'.repeat(priority)}</td>
-      <td>
-        <button
+    <IngredientTR>
+      <IngredientTD pointer onClick={handleIngredientDetail}>
+        {name}
+      </IngredientTD>
+      <IngredientTD pointer onClick={handleIngredientDetail}>
+        {category}
+      </IngredientTD>
+      <IngredientTD center>
+        <label className="flex-center">
+          <input
+            type="checkbox"
+            checked={stock}
+            onChange={(e) => {
+              handleStock(e);
+            }}
+          />
+          <span className="custom-checkbox" />
+        </label>
+      </IngredientTD>
+      <IngredientTD center>{'!'.repeat(priority)}</IngredientTD>
+      <IngredientTD className="flex-center">
+        <UpdateButton
           className="btn"
           onClick={(e) => {
             handleUpdate(e);
           }}
         >
-          Update
-        </button>
-        <button
+          <FaRegEdit />
+        </UpdateButton>
+        <DeleteButton
           className="btn"
           onClick={(e) => {
             handleDelete(e, id);
           }}
         >
-          Delete
-        </button>
-      </td>
-    </tr>
+          <MdDelete />
+        </DeleteButton>
+      </IngredientTD>
+    </IngredientTR>
   );
 };
 
