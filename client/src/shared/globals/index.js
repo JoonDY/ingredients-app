@@ -26,12 +26,16 @@ export const Button = styled.button`
   transition: opacity 0.1s ease-in-out;
   min-height: 28px;
   display: block;
+  user-select: none;
 
   &:hover,
   &:active {
-    opacity: 0.8;
-    color: ${theme.color.dark};
     cursor: pointer;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.5);
   }
 `;
 
@@ -72,18 +76,48 @@ export const Input = styled.input`
   font-family: inherit;
   font-weight: 700;
   width: 100%;
-  padding: 0.5rem 0.5rem 0.25rem 0.5rem;
+  padding: 0.25rem 0.25rem;
   margin: 0.5rem 0;
-  border: none;
+  border: 1px solid transparent;
   border-bottom: 1px solid ${theme.color.dark};
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.5);
+  }
 `;
 
 export const Select = styled.select`
   font-family: inherit;
   font-weight: 700;
   width: 100%;
-  padding: 0.5rem 0.25rem 0.25rem 0.25rem;
+  padding: 0.25rem 0;
   margin: 1rem 0;
-  border: none;
+  border: 1px solid transparent;
   border-bottom: 1px solid ${theme.color.dark};
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.5);
+  }
+`;
+
+export const Table = styled.table`
+  margin: 0 auto;
+  border-collapse: collapse;
+  white-space: nowrap;
+  font-size: 0.9rem;
+`;
+
+export const THead = styled.thead`
+  text-align: left;
+  user-select: none;
+`;
+
+export const TH = styled.th`
+  padding: 0.75rem 1.5rem;
+`;
+
+export const TD = styled.td`
+  padding: 0.75rem 1.5rem;
 `;

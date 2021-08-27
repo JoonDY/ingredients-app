@@ -3,15 +3,22 @@ import { Input, Select } from '../../shared/globals';
 import { theme } from '../../shared/theme';
 
 export const SearchInput = styled(Input)`
-  width: 100%;
+  &:focus {
+    border-radius: 5px;
+    border-bottom: 1px solid transparent;
+  }
 `;
 
 export const SearchSelect = styled(Select)`
-  padding: 0.1rem 0.25rem;
-  margin: 0.5rem 0.1rem;
-  border-radius: 5px;
-  border: 1px solid ${theme.color.dark};
-  width: 50%;
+  padding: 0.1rem 0;
+  margin: 0.5rem 0;
+  border-bottom: 1px solid ${theme.color.gray};
+  width: 30%;
+
+  &:focus {
+    border-radius: 5px;
+    border-bottom: 1px solid transparent;
+  }
 `;
 
 export const SearchBarContainer = styled.div`
@@ -25,8 +32,7 @@ export const SearchBarContainer = styled.div`
 
 export const FilterContainer = styled.div`
   display: flex;
-  margin: 0 auto;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
 `;
