@@ -8,12 +8,14 @@ export const H1 = styled.h1`
 `;
 
 export const H2 = styled.h2`
-  font-size: 2.25rem;
+  text-align: center;
+  font-size: 2rem;
   font-weight: 700;
   line-height: 1.3;
 `;
 
 export const H3 = styled.h3`
+  text-align: center;
   font-size: 2rem;
   font-weight: 500;
   line-height: 1.5;
@@ -40,7 +42,7 @@ export const Button = styled.button`
 `;
 
 export const Form = styled.form`
-  margin: 0 auto;
+  margin: 1rem auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -67,7 +69,7 @@ export const ModalWrapper = styled.div`
 export const ModalContent = styled.div`
   background-color: #fff;
   margin: 10% auto 15% auto;
-  width: 35%;
+  width: 40%;
   padding: 2rem;
   border-radius: 10px;
 `;
@@ -77,9 +79,9 @@ export const Input = styled.input`
   font-weight: 700;
   width: 100%;
   padding: 0.25rem 0.25rem;
-  margin: 0.5rem 0;
   border: 1px solid transparent;
   border-bottom: 1px solid ${theme.color.dark};
+  margin-bottom: 1.5rem;
 
   &:focus {
     outline: none;
@@ -92,9 +94,9 @@ export const Select = styled.select`
   font-weight: 700;
   width: 100%;
   padding: 0.25rem 0;
-  margin: 1rem 0;
   border: 1px solid transparent;
   border-bottom: 1px solid ${theme.color.dark};
+  margin-bottom: 1.5rem;
 
   &:focus {
     outline: none;
@@ -120,4 +122,14 @@ export const TH = styled.th`
 
 export const TD = styled.td`
   padding: 0.75rem 1.5rem;
+`;
+
+export const Label = styled.label`
+  width: 100%;
+  text-align: left;
+  display: block;
+  padding: 0 0.1rem;
+  margin: 0 auto;
+  font-size: 0.75rem;
+  font-weight: 900;
 `;

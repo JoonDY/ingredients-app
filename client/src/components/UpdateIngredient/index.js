@@ -1,64 +1,84 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
-import { getSingleIngredient, updateIngredient } from '../../api/Ingredients';
+import React, { useState } from 'react';
+import { updateIngredient } from '../../api/Ingredients';
+import {
+  ModalWrapper,
+  ModalContent,
+  H2,
+  Input,
+  Select,
+  Label,
+  Form,
+} from '../../shared/globals';
+import { AddButton } from '../AddIngredient/styles';
 
-const UpdateIngredient = () => {
-  const { id } = useParams();
-  let history = useHistory();
-  const [name, setName] = useState('');
-  const [stock, setStock] = useState('');
-  const [category, setCategory] = useState('');
-  const [priority, setPriority] = useState('');
+const UpdateIngredient = ({ id, setPopup, setStates, states }) => {
+  const { setItemCategory, setItemName, setItemStock, setItemPriority } =
+    setStates;
+  const { itemName, itemCategory, itemPriority, itemStock } = states;
+  const [name, setName] = useState(itemName);
+  const [stock, setStock] = useState(itemStock);
+  const [category, setCategory] = useState(itemCategory);
+  const [priority, setPriority] = useState(itemPriority);
 
-  useEffect(() => {
-    try {
-      getSingleIngredient(id, setName, setStock, setCategory, setPriority);
-    } catch (err) {
-      console.log(err);
+  // useEffect(() => {
+  //   try {
+  //     getSingleIngredient(id, setName, setStock, setCategory, setPriority);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }, []);
+
+  const handleClosePopup = (e) => {
+    if (e.target !== e.currentTarget) {
+      return;
     }
-  }, []);
-
-  const handleName = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleCategory = (e) => {
-    setCategory(e.target.value);
-  };
-
-  const handleStock = (e) => {
-    setStock(e.target.checked);
-  };
-
-  const handlePriority = (e) => {
-    setPriority(e.target.value);
+    setPopup(false);
   };
 
   const handleUpdate = (e) => {
     e.preventDefault();
     updateIngredient(id, name, stock, category, priority);
-    history.push('/');
+    setItemName(name);
+    setItemCategory(category);
+    setItemStock(stock);
+    setItemPriority(priority);
+    setPopup(false);
+  };
+
+  const changeToBool = (str) => {
+    if (str === 'true') {
+      return true;
+    } else if (str === 'false') {
+      return false;
+    } else {
+      return '';
+    }
   };
 
   return (
-    <div>
-      <form action="submit">
-        <div className="flex">
-          <div className="flex-column flex-left">
-            <label htmlFor="name">Name</label>
-            <label htmlFor="category">Category</label>
-            <label htmlFor="stock">Stock</label>
-            <label htmlFor="priority">Priority</label>
-          </div>
-          <div className="flex-column">
-            <input
+    <ModalWrapper onClick={handleClosePopup}>
+      <ModalContent>
+        <H2>Update Ingredient</H2>
+        <div>
+          <Form action="submit">
+            <Label htmlFor="name">Name</Label>
+            <Input
               type="text"
               id="name"
               value={name}
-              onChange={handleName}
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
               required
             />
-            <select id="category" value={category} onChange={handleCategory}>
+            <Label htmlFor="category">Category</Label>
+            <Select
+              id="category"
+              value={category}
+              onChange={(e) => {
+                setCategory(e.target.value);
+              }}
+            >
               <option value="" disabled>
                 Category
               </option>
@@ -73,17 +93,30 @@ const UpdateIngredient = () => {
               <option value="condiment">Condiment</option>
               <option value="spice">Spice</option>
               <option value="other">Other</option>
-            </select>
-            <input
-              type="checkbox"
-              checked={stock}
-              id="stock"
-              onChange={handleStock}
-            />
-            <select
+            </Select>
+
+            <Label htmlFor="stock">Stock</Label>
+            <Select
+              value={stock}
+              onChange={(e) => {
+                const bool = changeToBool(e.target.value);
+                setStock(bool);
+              }}
+              required
+            >
+              <option value="" disabled>
+                In Stock
+              </option>
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </Select>
+            <Label htmlFor="priority">Priority</Label>
+            <Select
               id="priority"
               value={priority}
-              onChange={handlePriority}
+              onChange={(e) => {
+                setPriority(e.target.value);
+              }}
               required
             >
               <option value="" disabled>
@@ -93,14 +126,14 @@ const UpdateIngredient = () => {
               <option value="2">1 Month</option>
               <option value="1">6 Months</option>
               <option value="0">1 Year+</option>
-            </select>
-          </div>
+            </Select>
+            <AddButton onClick={handleUpdate} type="submit">
+              Update
+            </AddButton>
+          </Form>
         </div>
-        <button onClick={handleUpdate} type="submit">
-          Update
-        </button>
-      </form>
-    </div>
+      </ModalContent>
+    </ModalWrapper>
   );
 };
 
