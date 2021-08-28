@@ -25,7 +25,7 @@ export const UpdateButton = styled(Button)`
   padding: 0.25rem 0.5rem;
 
   &:hover {
-    opacity: 0.5;
+    opacity: 0.75;
   }
 `;
 export const DeleteButton = styled(Button)`

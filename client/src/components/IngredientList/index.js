@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import { getIngredients } from '../../api/Ingredients';
 import { IngredientsContext } from '../../context/IngredientsContext';
 import { deleteIngredient } from '../../api/Ingredients';
-import Popup from '../Popup';
+import Popup from '../DeleteModal';
 import SearchBar from '../SearchBar';
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md';
 import { Span, IngredientTable, IngredientTHead, IngredientTH } from './styles';
@@ -119,7 +119,6 @@ const IngredientList = () => {
     <div>
       {popup.showDelete && (
         <Popup
-          message="Confirm Delete?"
           handleDeleteTrue={handleDeleteTrue}
           handleDeleteFalse={handleDeleteFalse}
         />

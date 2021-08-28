@@ -7,7 +7,7 @@ export const AddButton = styled(Button)`
   min-width: 15ch;
   max-width: 5rem;
   background-color: ${theme.color.accent};
-  padding: 0.25rem 0.75rem;
+  padding: 0.5rem 0.75rem;
   font-weight: 700;
 
   &:focus {
