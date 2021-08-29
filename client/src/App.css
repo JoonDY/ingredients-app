@@ -87,14 +87,26 @@ input[type='checkbox']:checked + .custom-checkbox:after {
   align-items: center;
 }
 
-@media (max-width: 800px) {
+@media (min-width: 500px) {
   html {
-    font-size: 0.75rem;
+    font-size: 125%;
   }
 }
 
-@media (max-width: 550px) {
+.full-plus-sign {
+  display: none;
+}
+
+@media (min-width: 750px) {
   html {
-    font-size: 0.5rem;
+    font-size: 140%;
+  }
+
+  .plus-sign {
+    display: none;
+  }
+
+  .full-plus-sign {
+    display: inline;
   }
 }

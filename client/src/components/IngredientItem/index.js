@@ -2,10 +2,15 @@ import { useState } from 'react';
 import { updateIngredient } from '../../api/Ingredients';
 import { useHistory } from 'react-router-dom';
 import {
-  IngredientTD,
   IngredientTR,
   DeleteButton,
   UpdateButton,
+  ButtonContainer,
+  NameTD,
+  CategoryTD,
+  StockTD,
+  PriorityTD,
+  ButtonTD,
 } from './styles';
 import { FaRegEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
@@ -52,13 +57,13 @@ const IngredientItem = ({ ingredient, handleDelete, handleUpdateStock }) => {
 
   return (
     <IngredientTR>
-      <IngredientTD pointer onClick={handleIngredientDetail}>
+      <NameTD pointer onClick={handleIngredientDetail}>
         {itemName}
-      </IngredientTD>
-      <IngredientTD pointer onClick={handleIngredientDetail}>
+      </NameTD>
+      <CategoryTD pointer onClick={handleIngredientDetail}>
         {itemCategory}
-      </IngredientTD>
-      <IngredientTD center>
+      </CategoryTD>
+      <StockTD center>
         <label className="flex-center">
           <input
             type="checkbox"
@@ -69,17 +74,28 @@ const IngredientItem = ({ ingredient, handleDelete, handleUpdateStock }) => {
           />
           <span className="custom-checkbox" />
         </label>
-      </IngredientTD>
-      <IngredientTD center>{'!'.repeat(itemPriority)}</IngredientTD>
-      <IngredientTD className="flex-center">
-        <UpdateButton
-          className="btn"
-          onClick={(e) => {
-            handleUpdate(e);
-          }}
-        >
-          <FaRegEdit />
-        </UpdateButton>
+      </StockTD>
+      <PriorityTD center>{'!'.repeat(itemPriority)}</PriorityTD>
+      <ButtonTD>
+        <ButtonContainer className="flex-center">
+          <UpdateButton
+            className="btn"
+            onClick={(e) => {
+              handleUpdate(e);
+            }}
+          >
+            <FaRegEdit />
+          </UpdateButton>
+          <DeleteButton
+            className="btn"
+            onClick={(e) => {
+              handleDelete(e, id);
+            }}
+          >
+            <MdDelete />
+          </DeleteButton>
+        </ButtonContainer>
+
         {popup && (
           <UpdateIngredient
             id={id}
@@ -88,16 +104,7 @@ const IngredientItem = ({ ingredient, handleDelete, handleUpdateStock }) => {
             states={states}
           />
         )}
-
-        <DeleteButton
-          className="btn"
-          onClick={(e) => {
-            handleDelete(e, id);
-          }}
-        >
-          <MdDelete />
-        </DeleteButton>
-      </IngredientTD>
+      </ButtonTD>
     </IngredientTR>
   );
 };

@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import { getIngredients } from '../../api/Ingredients';
 import { IngredientsContext } from '../../context/IngredientsContext';
 import { deleteIngredient } from '../../api/Ingredients';
-import Popup from '../DeleteModal';
+import DeleteModal from '../DeleteModal';
 import SearchBar from '../SearchBar';
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md';
 import { Span, IngredientTable, IngredientTHead, IngredientTH } from './styles';
@@ -118,100 +118,102 @@ const IngredientList = () => {
   return (
     <div>
       {popup.showDelete && (
-        <Popup
+        <DeleteModal
           handleDeleteTrue={handleDeleteTrue}
           handleDeleteFalse={handleDeleteFalse}
         />
       )}
       <SearchBar setSearchParams={setSearchParams} />
       <AddIngredient />
-      <IngredientTable>
-        <IngredientTHead>
-          <tr>
-            <IngredientTH pointer onClick={handleSortName}>
-              Name
-              <Span>
-                {sortName === 'desc' ? (
-                  <MdKeyboardArrowUp />
-                ) : sortName === 'asc' ? (
-                  <MdKeyboardArrowDown style={{ verticalAlign: 'bottom' }} />
-                ) : (
-                  ''
-                )}
-              </Span>
-            </IngredientTH>
-            <IngredientTH pointer onClick={handleSortCategory}>
-              Category
-              <Span>
-                {sortCategory === 'desc' ? (
-                  <MdKeyboardArrowUp />
-                ) : sortCategory === 'asc' ? (
-                  <MdKeyboardArrowDown style={{ verticalAlign: 'bottom' }} />
-                ) : (
-                  ''
-                )}
-              </Span>
-            </IngredientTH>
-            <IngredientTH center pointer onClick={handleSortStock}>
-              Stock
-              <Span>
-                {sortStock === 'desc' ? (
-                  <MdKeyboardArrowUp />
-                ) : sortStock === 'asc' ? (
-                  <MdKeyboardArrowDown style={{ verticalAlign: 'bottom' }} />
-                ) : (
-                  ''
-                )}
-              </Span>
-            </IngredientTH>
-            <IngredientTH center pointer onClick={handleSortPriority}>
-              Priority
-              <Span>
-                {sortPriority === 'asc' ? (
-                  <MdKeyboardArrowUp />
-                ) : sortPriority === 'desc' ? (
-                  <MdKeyboardArrowDown style={{ verticalAlign: 'bottom' }} />
-                ) : (
-                  ''
-                )}
-              </Span>
-            </IngredientTH>
-            <IngredientTH></IngredientTH>
-          </tr>
-        </IngredientTHead>
-        <tbody>
-          {ingredients &&
-            ingredients
-              .filter((item) => {
-                return item.name.includes(searchParams.name);
-              })
-              .filter((item) => {
-                return item.category.includes(searchParams.category);
-              })
-              .filter((item) => {
-                if (searchParams.priority) {
-                  return item.priority === parseInt(searchParams.priority);
-                }
-                return true;
-              })
-              .filter((item) => {
-                if (!(searchParams.stock === '')) {
-                  return item.in_stock.toString() === searchParams.stock;
-                }
-                return true;
-              })
-              .map((item) => {
-                return (
-                  <IngredientItem
-                    key={item.id}
-                    ingredient={item}
-                    handleDelete={handleDelete}
-                    handleUpdateStock={handleUpdateStock}
-                  />
-                );
-              })}
-        </tbody>
-      </IngredientTable>
+      <div className="flex-center">
+        <IngredientTable>
+          <IngredientTHead>
+            <tr>
+              <IngredientTH pointer onClick={handleSortName}>
+                Name
+                <Span>
+                  {sortName === 'desc' ? (
+                    <MdKeyboardArrowUp />
+                  ) : sortName === 'asc' ? (
+                    <MdKeyboardArrowDown style={{ verticalAlign: 'bottom' }} />
+                  ) : (
+                    ''
+                  )}
+                </Span>
+              </IngredientTH>
+              <IngredientTH pointer onClick={handleSortCategory}>
+                Category
+                <Span>
+                  {sortCategory === 'desc' ? (
+                    <MdKeyboardArrowUp />
+                  ) : sortCategory === 'asc' ? (
+                    <MdKeyboardArrowDown style={{ verticalAlign: 'bottom' }} />
+                  ) : (
+                    ''
+                  )}
+                </Span>
+              </IngredientTH>
+              <IngredientTH center pointer onClick={handleSortStock}>
+                Stock
+                <Span>
+                  {sortStock === 'desc' ? (
+                    <MdKeyboardArrowUp />
+                  ) : sortStock === 'asc' ? (
+                    <MdKeyboardArrowDown style={{ verticalAlign: 'bottom' }} />
+                  ) : (
+                    ''
+                  )}
+                </Span>
+              </IngredientTH>
+              <IngredientTH center pointer onClick={handleSortPriority}>
+                Priority
+                <Span>
+                  {sortPriority === 'asc' ? (
+                    <MdKeyboardArrowUp />
+                  ) : sortPriority === 'desc' ? (
+                    <MdKeyboardArrowDown style={{ verticalAlign: 'bottom' }} />
+                  ) : (
+                    ''
+                  )}
+                </Span>
+              </IngredientTH>
+              <IngredientTH></IngredientTH>
+            </tr>
+          </IngredientTHead>
+          <tbody>
+            {ingredients &&
+              ingredients
+                .filter((item) => {
+                  return item.name.includes(searchParams.name);
+                })
+                .filter((item) => {
+                  return item.category.includes(searchParams.category);
+                })
+                .filter((item) => {
+                  if (searchParams.priority) {
+                    return item.priority === parseInt(searchParams.priority);
+                  }
+                  return true;
+                })
+                .filter((item) => {
+                  if (!(searchParams.stock === '')) {
+                    return item.in_stock.toString() === searchParams.stock;
+                  }
+                  return true;
+                })
+                .map((item) => {
+                  return (
+                    <IngredientItem
+                      key={item.id}
+                      ingredient={item}
+                      handleDelete={handleDelete}
+                      handleUpdateStock={handleUpdateStock}
+                    />
+                  );
+                })}
+          </tbody>
+        </IngredientTable>
+      </div>
     </div>
   );
 };

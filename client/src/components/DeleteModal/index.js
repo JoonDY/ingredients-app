@@ -2,7 +2,7 @@ import React from 'react';
 import { ModalContent, ModalWrapper, H3 } from '../../shared/globals';
 import { YesButton, NoButton } from './styles';
 
-const DeletePopup = ({ handleDeleteTrue, handleDeleteFalse }) => {
+const DeleteModal = ({ handleDeleteTrue, handleDeleteFalse }) => {
   return (
     <ModalWrapper>
       <ModalContent>
@@ -16,4 +16,4 @@ const DeletePopup = ({ handleDeleteTrue, handleDeleteFalse }) => {
   );
 };
 
-export default DeletePopup;
+export default DeleteModal;

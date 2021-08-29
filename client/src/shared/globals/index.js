@@ -2,23 +2,34 @@ import styled from 'styled-components';
 import { theme } from '../theme';
 
 export const H1 = styled.h1`
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 900;
   line-height: 1.3;
+
+  @media (min-width: 750px) {
+    font-size: 2.5rem;
+  }
 `;
 
 export const H2 = styled.h2`
   text-align: center;
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 1.75rem;
+  font-weight: 900;
   line-height: 1.3;
+
+  @media (min-width: 750px) {
+    font-size: 2rem;
+  }
 `;
 
 export const H3 = styled.h3`
   text-align: center;
-  font-size: 2rem;
-  font-weight: 500;
+  font-size: 1.5rem;
+  font-weight: 900;
   line-height: 1.5;
+  @media (min-width: 750px) {
+    font-size: 1.75rem;
+  }
 `;
 
 export const Button = styled.button`
@@ -52,12 +63,11 @@ export const Form = styled.form`
 export const ErrorMessage = styled.p`
   color: red;
   font-weight: 700;
-  font-size: .75rem;
-}
+  font-size: 0.75rem;
 `;
 
 export const ModalWrapper = styled.div`
-  z-index: 1;
+  z-index: 50;
   position: fixed;
   top: 0;
   left: 0;
@@ -68,17 +78,22 @@ export const ModalWrapper = styled.div`
 
 export const ModalContent = styled.div`
   background-color: #fff;
-  margin: 10% auto 15% auto;
-  width: 40%;
-  padding: 2rem;
+  margin: 5% auto 15% auto;
+  width: 95%;
+  padding: 1.5rem 1.5rem 1rem 1.5rem;
   border-radius: 10px;
+
+  @media (min-width: 650px) {
+    width: 75%;
+    max-width: 500px;
+  }
 `;
 
 export const Input = styled.input`
   font-family: inherit;
   font-weight: 700;
   width: 100%;
-  padding: 0.25rem 0.25rem;
+  padding: 0.2rem 0.25rem;
   border: 1px solid transparent;
   border-bottom: 1px solid ${theme.color.dark};
   margin-bottom: 1.5rem;
@@ -107,8 +122,13 @@ export const Select = styled.select`
 export const Table = styled.table`
   margin: 0 auto;
   border-collapse: collapse;
-  white-space: nowrap;
+  /* white-space: nowrap; */
   font-size: 0.9rem;
+  width: 95%;
+
+  @media (min-width: 650px) {
+    width: 75%;
+  }
 `;
 
 export const THead = styled.thead`
@@ -117,11 +137,13 @@ export const THead = styled.thead`
 `;
 
 export const TH = styled.th`
-  padding: 0.75rem 1.5rem;
+  padding: 0;
+  margin: 0;
 `;
 
 export const TD = styled.td`
-  padding: 0.75rem 1.5rem;
+  padding: 0;
+  margin: 0;
 `;
 
 export const Label = styled.label`

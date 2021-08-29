@@ -107,7 +107,8 @@ const AddIngredient = () => {
           setPopup(true);
         }}
       >
-        + Add Ingredient
+        <span className="plus-sign">+</span>
+        <span className="full-plus-sign">+ Add Ingredient</span>
       </AddIngredientButton>
       {popup && (
         <ModalWrapper onClick={handleClosePopup}>

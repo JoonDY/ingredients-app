@@ -3,7 +3,7 @@ import { updateIngredient } from '../../api/Ingredients';
 import {
   ModalWrapper,
   ModalContent,
-  H2,
+  H3,
   Input,
   Select,
   Label,
@@ -58,7 +58,7 @@ const UpdateIngredient = ({ id, setPopup, setStates, states }) => {
   return (
     <ModalWrapper onClick={handleClosePopup}>
       <ModalContent>
-        <H2>Update Ingredient</H2>
+        <H3>Update Ingredient</H3>
         <div>
           <Form action="submit">
             <Label htmlFor="name">Name</Label>
