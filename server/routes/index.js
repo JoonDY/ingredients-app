@@ -3,5 +3,5 @@ const user = require('./user');
 
 module.exports = (app) => {
   app.use('/api/v1/ingredients', ingredients);
-  app.use('/', user);
+  app.use('/api/v1/auth', user);
 };
