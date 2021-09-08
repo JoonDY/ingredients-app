@@ -1,18 +1,18 @@
-import { useState } from 'react';
-import { postLogin } from '../../api/user';
+import React, { useState } from 'react';
+import { postRegister } from '../../api/user';
 
-const Login = () => {
+const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
-    postLogin(username, password);
+    postRegister(username, password);
   };
 
   return (
     <div>
-      <h3>Login</h3>
+      <h3>Register</h3>
       <form action="submit">
         <input
           type="text"
@@ -24,10 +24,10 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={handleLogin}>Login</button>
+        <button onClick={handleRegister}>Register</button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Register;

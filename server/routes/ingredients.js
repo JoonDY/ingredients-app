@@ -4,7 +4,9 @@ const db = require('../db');
 
 router.get('/', async (req, res) => {
   try {
-    const results = await db.query('SELECT * FROM ingredients');
+    const results = await db.query(
+      'SELECT * FROM ingredients ORDER BY priority DESC'
+    );
     res.json({
       status: 'success',
       results: results.rows.length,

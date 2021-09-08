@@ -1,48 +1,34 @@
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
 const db = require('./db');
-const validatePassword = require('./util/password').validatePassword;
 
-passport.use(
-  new LocalStrategy(async (username, password, done) => {
-    try {
-      const result = await db.query('SELECT * FROM users WHERE username=$1', [
-        username,
-      ]);
+const options = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: process.env.SECRET_KEY,
+  algorithms: ['HS256'],
+};
 
-      const user = result.rows[0];
+module.exports = (passport) => {
+  passport.use(
+    new JwtStrategy(options, async (payload, done) => {
+      const id = payload.sub;
 
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
+      try {
+        const result = await db.query('SELECT * FROM users WHERE id=$1', [id]);
+        const user = result.rows[0];
+
+        console.log(user);
+
+        if (user) {
+          return done(null, user);
+        } else {
+          return done(null, false);
+        }
+      } catch (err) {
+        console.log(err);
+        return done(err);
       }
-
-      const valid = validatePassword(password, user.hash, user.salt);
-
-      if (valid) {
-        return done(null, user);
-      } else {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-    } catch (err) {
-      console.log(err);
-      return done(err);
-    }
-  })
-);
-
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser(async (userId, done) => {
-  try {
-    const result = await db.query('SELECT * FROM users WHERE id=$1', [userId]);
-    if (result) {
-      const user = result.rows[0];
-      return done(null, user);
-    }
-  } catch (err) {
-    console.log(err);
-    return done(err);
-  }
-});
+    })
+  );
+};

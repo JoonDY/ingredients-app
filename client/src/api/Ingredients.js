@@ -5,13 +5,7 @@ export const getIngredients = async (setIngredients) => {
     const res = await fetch(BASE_URL);
     const data = await res.json();
 
-    /* Default Sort Ingredients by Priority */
-    const ingredients = data.data.ingredients;
-    const sortedIngredients = [...ingredients].sort((a, b) => {
-      return -1 * (a.priority - b.priority);
-    });
-
-    setIngredients(sortedIngredients);
+    setIngredients(data.data.ingredients);
   } catch (err) {
     console.log(err);
   }

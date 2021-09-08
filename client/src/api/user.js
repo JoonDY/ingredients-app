@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3001/api/v1/auth';
+const BASE_URL = 'http://localhost:3001/auth';
 
 export const postLogin = async (username, password) => {
   try {
@@ -12,7 +12,29 @@ export const postLogin = async (username, password) => {
         password,
       }),
     });
-    console.log(res);
+
+    const data = await res.json();
+    console.log(data);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const postRegister = async (username, password) => {
+  try {
+    const res = await fetch(`${BASE_URL}/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
+
+    const data = await res.json();
+    console.log(data);
   } catch (err) {
     console.log(err);
   }

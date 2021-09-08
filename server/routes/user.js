@@ -1,36 +1,58 @@
 var express = require('express');
 var router = express.Router();
 const db = require('../db');
-const genPassword = require('../util/password').genPassword;
+const utils = require('../util/utils');
 const passport = require('passport');
-const isAuth = require('../util/authMiddleware').isAuth;
-const isAdmin = require('../util/authMiddleware').isAdmin;
 
-router.get('/login', (req, res) => {
-  res.render('log-in-form');
+router.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const result = await db.query('SELECT * FROM users WHERE username=$1', [
+      username,
+    ]);
+
+    const user = result.rows[0];
+
+    if (!user) {
+      res.status(401).json({ message: 'Incorrect username.' });
+    }
+
+    const valid = utils.validatePassword(password, user.hash, user.salt);
+
+    if (valid) {
+      const jwt = utils.issueJWT(user);
+      res.status(200).json({
+        success: true,
+        user: user,
+        token: jwt.token,
+        expiresIn: jwt.expires,
+      });
+    } else {
+      res.status(401).json({ message: 'Incorrect password.' });
+    }
+  } catch (err) {
+    console.log(err);
+  }
 });
 
-// router.post('/login', (req, res) => {
-//   passport.authenticate('local', (err, user, info) => {
-//     if (!user) {
-//       res.send('fail');
-//     }
-//     if (user) {
-//       console.log(user);
-//       res.send('success');
-//     }
-//   })(req, res);
-// });
+router.get(
+  '/protected',
+  passport.authenticate('jwt', { session: false }),
+  (req, res, next) => {
+    res.status(200).json({ message: 'Protected route entered.' });
+  }
+);
 
-router.post('/login', passport.authenticate('local'), (req, res) => {
-  res.send('success <button><a href="/api/v1/auth/logout">Logout</a></button>');
-});
+router.get(
+  '/private-route',
+  passport.authenticate('jwt', { session: false }),
+  (req, res, next) => {
+    res.send('Private route entered.');
+  }
+);
 
-router.get('/private-route', isAuth, (req, res, next) => {
-  res.send('Private route entered.');
-});
-
-router.get('/admin-route', isAdmin, (req, res, next) => {
+router.get('/admin-route', (req, res, next) => {
   res.send('Admin route entered.');
 });
 
@@ -39,28 +61,36 @@ router.get('/logout', (req, res) => {
   res.send('Logout success');
 });
 
-router.get('/register', (req, res) => {
-  res.render('sign-up-form');
-});
-
 router.post('/register', async (req, res) => {
   const { username, password } = req.body;
 
-  const saltHash = genPassword(password);
+  const saltHash = utils.genPassword(password);
 
   const salt = saltHash.salt;
   const hash = saltHash.hash;
 
   try {
     const results = await db.query(
-      'INSERT INTO users (username, salt, hash) VALUES ($1, $2, $3)',
+      'INSERT INTO users (username, salt, hash) VALUES ($1, $2, $3) RETURNING *',
       [username, salt, hash]
     );
+
+    const user = results.rows[0];
+
+    const jwt = utils.issueJWT(user);
+
+    res.status(200).json({
+      success: true,
+      user: user,
+      token: jwt.token,
+      expiresIn: jwt.expires,
+    });
   } catch (err) {
     console.log(err);
+    res.status(500).json({
+      error: err,
+    });
   }
-
-  res.redirect('/api/v1/auth/login');
 });
 
 module.exports = router;
