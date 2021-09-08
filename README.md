@@ -17,7 +17,8 @@
 - NodeJS (Express)
   - API
   - Routing
-  - DB (PostgreSQL)
+  - Database (PostgreSQL)
+  - Authorization (Passport, Local, JWT)
 
 ### App Details
 
