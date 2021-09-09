@@ -32,6 +32,8 @@ export const H3 = styled.h3`
   }
 `;
 
+export const Nav = styled.nav``;
+
 export const Button = styled.button`
   font-family: inherit;
   border: none;
@@ -120,6 +122,7 @@ export const Select = styled.select`
 `;
 
 export const Table = styled.table`
+  text-transform: capitalize;
   margin: 0 auto;
   border-collapse: collapse;
   /* white-space: nowrap; */

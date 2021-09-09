@@ -1,18 +1,31 @@
-import React from 'react';
-import { HeaderContainer } from './styles';
-import { H1 } from '../../shared/globals';
+import React, { useContext } from 'react';
+import { UserContext } from '../../context/UserContext';
+import { HeaderContainer, TitleH1, HeaderNav, UL, LI } from './styles';
 
 const Header = () => {
+  const { user } = useContext(UserContext);
+
+  const handleLogout = () => {
+    localStorage.clear();
+  };
+
   return (
     <HeaderContainer>
-      <H1>Ingredients</H1>
-      {/* <nav className='navbar'>
-        <ul className='nav-list'>
-          <li>Ingredients</li>
-          <li>Recipes</li>
-          <li>Shopping List</li>
-        </ul>
-      </nav> */}
+      <TitleH1>MyIngredientList</TitleH1>
+      {user && (
+        <HeaderNav className="navbar">
+          <UL className="nav-list">
+            <LI>Ingredients</LI>
+            <LI>Recipes</LI>
+            <LI>Shopping List</LI>
+            <LI>
+              <a onClick={handleLogout} href="/">
+                Logout
+              </a>
+            </LI>
+          </UL>
+        </HeaderNav>
+      )}
     </HeaderContainer>
   );
 };

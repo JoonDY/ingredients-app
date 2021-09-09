@@ -8,14 +8,14 @@ router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const result = await db.query('SELECT * FROM users WHERE username=$1', [
+    const result = await db.query('SELECT * FROM users WHERE email=$1', [
       username,
     ]);
 
     const user = result.rows[0];
 
     if (!user) {
-      res.status(401).json({ message: 'Incorrect username.' });
+      res.status(401).json({ message: 'Incorrect information.' });
     }
 
     const valid = utils.validatePassword(password, user.hash, user.salt);
@@ -29,7 +29,7 @@ router.post('/login', async (req, res) => {
         expiresIn: jwt.expires,
       });
     } else {
-      res.status(401).json({ message: 'Incorrect password.' });
+      res.status(401).json({ message: 'Incorrect information.' });
     }
   } catch (err) {
     console.log(err);
@@ -71,7 +71,7 @@ router.post('/register', async (req, res) => {
 
   try {
     const results = await db.query(
-      'INSERT INTO users (username, salt, hash) VALUES ($1, $2, $3) RETURNING *',
+      'INSERT INTO users (email, salt, hash, date_created) VALUES ($1, $2, $3, NOW()) RETURNING *',
       [username, salt, hash]
     );
 
