@@ -27,10 +27,13 @@ export const H3 = styled.h3`
   font-size: 1.5rem;
   font-weight: 900;
   line-height: 1.5;
+  margin-bottom: 2rem;
   @media (min-width: 750px) {
     font-size: 1.75rem;
   }
 `;
+
+export const Nav = styled.nav``;
 
 export const Button = styled.button`
   font-family: inherit;
@@ -49,6 +52,18 @@ export const Button = styled.button`
   &:focus {
     outline: none;
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.5);
+  }
+`;
+
+export const AuthButton = styled(Button)`
+  width: 100%;
+  background-color: ${theme.color.accent};
+  font-weight: 900;
+  font-size: 0.75rem;
+  padding: 0.5rem 0;
+
+  &:hover {
+    transform: scale(1.01);
   }
 `;
 
@@ -79,18 +94,19 @@ export const ModalWrapper = styled.div`
 export const ModalContent = styled.div`
   background-color: #fff;
   margin: 5% auto 15% auto;
-  width: 95%;
   padding: 1.5rem 1.5rem 1rem 1.5rem;
+  width: 95%;
+  max-width: 500px;
   border-radius: 10px;
 
   @media (min-width: 650px) {
     width: 75%;
-    max-width: 500px;
   }
 `;
 
 export const Input = styled.input`
   font-family: inherit;
+  text-transform: capitalize;
   font-weight: 700;
   width: 100%;
   padding: 0.2rem 0.25rem;
@@ -101,7 +117,13 @@ export const Input = styled.input`
   &:focus {
     outline: none;
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    border-bottom: 1px solid transparent;
   }
+`;
+
+export const AuthInput = styled(Input)`
+  text-transform: none;
 `;
 
 export const Select = styled.select`
@@ -120,11 +142,12 @@ export const Select = styled.select`
 `;
 
 export const Table = styled.table`
+  text-transform: capitalize;
   margin: 0 auto;
   border-collapse: collapse;
   /* white-space: nowrap; */
   font-size: 0.9rem;
-  width: 95%;
+  width: 100%;
 
   @media (min-width: 650px) {
     width: 75%;

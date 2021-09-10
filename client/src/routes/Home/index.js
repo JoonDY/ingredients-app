@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from '../../components/Header';
 import IngredientList from '../../components/IngredientList';
+import Header from '../../components/Header';
 import { MainContainer } from './styles';
 
 const Home = () => {

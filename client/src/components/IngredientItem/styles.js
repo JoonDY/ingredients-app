@@ -60,7 +60,7 @@ export const StockTD = styled(TD)`
     position: static;
     transform: none;
     display: revert;
-    padding: 0.25rem 1rem;
+    padding: 0.25rem 0;
   }
 `;
 
