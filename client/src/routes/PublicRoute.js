@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Route, Redirect } from 'react-router';
 import { UserContext } from '../context/UserContext';
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PublicRoute = ({ component: Component, ...rest }) => {
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
@@ -13,10 +13,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) => {
-        return user ? <Component {...props} /> : <Redirect to="/login" />;
+        return !user ? <Component {...props} /> : <Redirect to="/" />;
       }}
     ></Route>
   );
 };
 
-export default PrivateRoute;
+export default PublicRoute;

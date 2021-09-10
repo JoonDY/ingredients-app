@@ -57,12 +57,6 @@ const IngredientItem = ({ ingredient, handleDelete, handleUpdateStock }) => {
 
   return (
     <IngredientTR>
-      <NameTD pointer onClick={handleIngredientDetail}>
-        {itemName}
-      </NameTD>
-      <CategoryTD pointer onClick={handleIngredientDetail}>
-        {itemCategory}
-      </CategoryTD>
       <StockTD center>
         <label className="flex-center">
           <input
@@ -75,6 +69,13 @@ const IngredientItem = ({ ingredient, handleDelete, handleUpdateStock }) => {
           <span className="custom-checkbox" />
         </label>
       </StockTD>
+      <NameTD pointer onClick={handleIngredientDetail}>
+        {itemName}
+      </NameTD>
+      <CategoryTD pointer onClick={handleIngredientDetail}>
+        {itemCategory}
+      </CategoryTD>
+
       <PriorityTD center>{'!'.repeat(itemPriority)}</PriorityTD>
       <ButtonTD>
         <ButtonContainer className="flex-center">

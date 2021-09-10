@@ -8,8 +8,8 @@ router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const result = await db.query('SELECT * FROM users WHERE email=$1', [
-      username,
+    const result = await db.query('SELECT * FROM users WHERE username=$1', [
+      username.toLowerCase(),
     ]);
 
     const user = result.rows[0];
@@ -56,14 +56,8 @@ router.get('/admin-route', (req, res, next) => {
   res.send('Admin route entered.');
 });
 
-router.get('/logout', (req, res) => {
-  req.logout();
-  res.send('Logout success');
-});
-
 router.post('/register', async (req, res) => {
-  const { username, password } = req.body;
-
+  const { username, password, email } = req.body;
   const saltHash = utils.genPassword(password);
 
   const salt = saltHash.salt;
@@ -71,8 +65,8 @@ router.post('/register', async (req, res) => {
 
   try {
     const results = await db.query(
-      'INSERT INTO users (email, salt, hash, date_created) VALUES ($1, $2, $3, NOW()) RETURNING *',
-      [username, salt, hash]
+      'INSERT INTO users (email, salt, hash, date_created, username) VALUES ($1, $2, $3, NOW(), $4) RETURNING *',
+      [email.toLowerCase(), salt, hash, username.toLowerCase()]
     );
 
     const user = results.rows[0];

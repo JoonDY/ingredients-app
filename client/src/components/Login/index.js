@@ -1,45 +1,49 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { postLogin } from '../../api/user';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-import { UserContext } from '../../context/UserContext';
+import {
+  ModalContent,
+  H3,
+  Label,
+  Form,
+  AuthButton,
+  AuthInput,
+} from '../../shared/globals';
 
 const Login = () => {
-  const { user, setUser } = useContext(UserContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    await postLogin(username, password, setUser);
+    await postLogin(username, password);
     history.push('/');
   };
 
-  if (user) {
-    history.push('/');
-  }
-
   return (
-    <div>
-      <h3>Login</h3>
-      <form action="submit">
-        <label>Email</label>
-        <input
-          type="email"
+    <ModalContent>
+      <H3>MyIngredientList</H3>
+      <Form onSubmit={handleLogin}>
+        <Label>Username</Label>
+        <AuthInput
+          type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        <label>Password</label>
-        <input
+        <Label>Password</Label>
+        <AuthInput
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={handleLogin}>Login</button>
-      </form>
-      <Link to="/signup">Create Account</Link>
-    </div>
+        <AuthButton>Log In</AuthButton>
+      </Form>
+      <Link className="react-link" to="/signup">
+        Create Account
+      </Link>
+    </ModalContent>
   );
 };
 

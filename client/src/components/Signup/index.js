@@ -1,45 +1,68 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { postRegister } from '../../api/user';
 import { useHistory } from 'react-router';
-import { UserContext } from '../../context/UserContext';
+import {
+  ModalContent,
+  H3,
+  Label,
+  Form,
+  AuthButton,
+  AuthInput,
+} from '../../shared/globals';
 
 const Signup = () => {
-  const { user, setUser } = useContext(UserContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [email, setEmail] = useState('');
   const history = useHistory();
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    postRegister(username, password, setUser);
+    await postRegister(username, email, password);
     history.push('/');
   };
 
-  if (user) {
-    history.push('/');
-  }
-
   return (
-    <div>
-      <h3>Register</h3>
-      <form action="submit">
-        <label>Email</label>
-        <input
-          type="email"
+    <ModalContent>
+      <H3>MyIngredientList</H3>
+      <H3>Sign Up</H3>
+      <Form>
+        <Label>Username</Label>
+        <AuthInput
+          type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        <label>Password</label>
-        <input
+
+        <Label>Email</Label>
+        <AuthInput
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <Label>Password</Label>
+        <AuthInput
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={handleRegister}>Register</button>
-      </form>
-      <Link to="/login">Already have an account?</Link>
-    </div>
+
+        <Label>Confirm Password</Label>
+        <AuthInput
+          type="password"
+          value={passwordConfirm}
+          onChange={(e) => setPasswordConfirm(e.target.value)}
+        />
+
+        <AuthButton onClick={handleRegister}>Register</AuthButton>
+      </Form>
+      <Link className="react-link" to="/login">
+        Already have an account?
+      </Link>
+    </ModalContent>
   );
 };
 

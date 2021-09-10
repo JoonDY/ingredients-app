@@ -7,12 +7,16 @@ export const Span = styled.span`
 `;
 
 export const IngredientTable = styled(Table)`
-  margin: 1rem auto;
-  width: 95%;
-  border-radius: 10px 10px 0 0;
+  margin: 0 auto;
+  width: 100%;
   overflow: hidden;
   box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.1);
   font-size: 0.75rem;
+
+  @media (min-width: 750px) {
+    border-radius: 10px 10px 0 0;
+    margin: 1rem auto;
+  }
 `;
 
 export const IngredientTHead = styled(THead)`

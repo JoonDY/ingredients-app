@@ -21,11 +21,26 @@ body {
 ul {
   list-style: none;
   display: flex;
+  white-space: nowrap;
+  align-items: flex-end;
 }
 
 a {
   text-decoration: none;
   font-family: inherit;
+}
+
+.react-link {
+  font-size: 0.75rem;
+  display: block;
+  text-align: center;
+  background-color: #846267;
+  color: #fff;
+  border-radius: 5px;
+  min-height: 28px;
+  user-select: none;
+  font-weight: 900;
+  padding: 0.5rem 0;
 }
 
 a:hover {

@@ -129,6 +129,18 @@ const IngredientList = () => {
         <IngredientTable>
           <IngredientTHead>
             <tr>
+              <IngredientTH center pointer onClick={handleSortStock}>
+                Stock
+                <Span>
+                  {sortStock === 'desc' ? (
+                    <MdKeyboardArrowUp />
+                  ) : sortStock === 'asc' ? (
+                    <MdKeyboardArrowDown style={{ verticalAlign: 'bottom' }} />
+                  ) : (
+                    ''
+                  )}
+                </Span>
+              </IngredientTH>
               <IngredientTH pointer onClick={handleSortName}>
                 Name
                 <Span>
@@ -153,18 +165,7 @@ const IngredientList = () => {
                   )}
                 </Span>
               </IngredientTH>
-              <IngredientTH center pointer onClick={handleSortStock}>
-                Stock
-                <Span>
-                  {sortStock === 'desc' ? (
-                    <MdKeyboardArrowUp />
-                  ) : sortStock === 'asc' ? (
-                    <MdKeyboardArrowDown style={{ verticalAlign: 'bottom' }} />
-                  ) : (
-                    ''
-                  )}
-                </Span>
-              </IngredientTH>
+
               <IngredientTH center pointer onClick={handleSortPriority}>
                 Priority
                 <Span>
