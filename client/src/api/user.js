@@ -1,6 +1,6 @@
 const BASE_URL = 'http://localhost:3001/auth';
 
-export const postLogin = async (username, password) => {
+export const postLogin = async (username, password, history) => {
   try {
     const res = await fetch(`${BASE_URL}/login`, {
       method: 'POST',
@@ -16,17 +16,27 @@ export const postLogin = async (username, password) => {
     const data = await res.json();
 
     if (data.user) {
-      const user = JSON.stringify(data.user);
+      const user = JSON.stringify(data.token);
       localStorage.setItem('user', user);
+    } else {
+      return data.error;
     }
+
+    history.push('/');
   } catch (err) {
     console.log(err);
   }
 };
 
-export const postRegister = async (username, email, password) => {
+export const postRegister = async (
+  username,
+  email,
+  password,
+  passwordConfirm,
+  history
+) => {
   try {
-    const res = await fetch(`${BASE_URL}/register`, {
+    const res = await fetch(`${BASE_URL}/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -35,15 +45,20 @@ export const postRegister = async (username, email, password) => {
         username,
         password,
         email,
+        passwordConfirm,
       }),
     });
 
     const data = await res.json();
 
     if (data.user) {
-      const user = JSON.stringify(data.user);
+      const user = JSON.stringify(data.token);
       localStorage.setItem('user', user);
+    } else {
+      return data.error;
     }
+
+    history.push('/');
   } catch (err) {
     console.log(err);
   }

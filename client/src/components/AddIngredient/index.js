@@ -81,11 +81,11 @@ const AddIngredient = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const valid = validateForm();
     if (valid) {
-      postIngredients(
+      await postIngredients(
         name,
         category,
         stock,
@@ -97,6 +97,7 @@ const AddIngredient = () => {
       resetState();
       setFormError('');
     } else {
+      return;
     }
   };
 

@@ -1,12 +1,16 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import { HeaderContainer, TitleH1, HeaderNav, UL, LI } from './styles';
+import { GrLogout } from 'react-icons/gr';
+import { useHistory } from 'react-router';
 
 const Header = () => {
   const { user } = useContext(UserContext);
+  const history = useHistory();
 
   const handleLogout = () => {
     localStorage.clear();
+    history.push('/login');
   };
 
   return (
@@ -19,9 +23,7 @@ const Header = () => {
             <LI>Recipes</LI>
             <LI>Shopping List</LI>
             <LI>
-              <a onClick={handleLogout} href="/">
-                Logout
-              </a>
+              <GrLogout className="logout-button" onClick={handleLogout} />
             </LI>
           </UL>
         </HeaderNav>

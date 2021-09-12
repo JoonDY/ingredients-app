@@ -18,8 +18,6 @@ module.exports = (passport) => {
         const result = await db.query('SELECT * FROM users WHERE id=$1', [id]);
         const user = result.rows[0];
 
-        console.log(user);
-
         if (user) {
           return done(null, user);
         } else {

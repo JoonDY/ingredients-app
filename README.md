@@ -13,6 +13,7 @@
   - Hooks
   - Destructuring
   - Styled Components
+  - Routing (Redirect, Private/Public Routes)
 
 - NodeJS (Express)
   - API
@@ -23,5 +24,3 @@
 ### App Details
 
 - Inventory management for ingredients
-
-

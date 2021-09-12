@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
 
 const genPassword = (password) => {
   let salt = crypto.randomBytes(32).toString('hex');
@@ -14,6 +15,10 @@ const genPassword = (password) => {
 };
 
 const validatePassword = (password, hash, salt) => {
+  if (!password) {
+    return;
+  }
+
   let hashVerify = crypto
     .pbkdf2Sync(password, salt, 10000, 64, 'sha512')
     .toString('hex');
@@ -41,6 +46,9 @@ const issueJWT = (user) => {
   };
 };
 
+const authenticate = passport.authenticate('jwt', { session: false });
+
+module.exports.authenticate = authenticate;
 module.exports.genPassword = genPassword;
 module.exports.validatePassword = validatePassword;
 module.exports.issueJWT = issueJWT;

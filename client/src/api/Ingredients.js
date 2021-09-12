@@ -1,8 +1,14 @@
 const BASE_URL = 'http://localhost:3001/api/v1/ingredients';
 
 export const getIngredients = async (setIngredients) => {
+  const token = JSON.parse(localStorage.user);
+
   try {
-    const res = await fetch(BASE_URL);
+    const res = await fetch(BASE_URL, {
+      headers: {
+        Authorization: token,
+      },
+    });
     const data = await res.json();
 
     setIngredients(data.data.ingredients);
@@ -18,8 +24,13 @@ export const getSingleIngredient = async (
   setCategory,
   setPriority
 ) => {
+  const token = JSON.parse(localStorage.user);
   try {
-    const res = await fetch(`${BASE_URL}/${id}`);
+    const res = await fetch(`${BASE_URL}/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
     const data = await res.json();
     setName(data.data.ingredients[0].name);
     setStock(data.data.ingredients[0].in_stock);
@@ -39,11 +50,13 @@ export const postIngredients = async (
   setFormError,
   setPopUp
 ) => {
+  const token = JSON.parse(localStorage.user);
   try {
     const req = await fetch(BASE_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: token,
       },
       body: JSON.stringify({
         name: name.toLowerCase(),
@@ -72,16 +85,23 @@ export const postIngredients = async (
 };
 
 export const deleteIngredient = async (id) => {
+  const token = JSON.parse(localStorage.user);
+
   await fetch(`${BASE_URL}/${id}`, {
     method: 'DELETE',
+    headers: {
+      Authorization: token,
+    },
   });
 };
 
 export const updateIngredient = async (id, name, stock, category, priority) => {
+  const token = JSON.parse(localStorage.user);
   await fetch(`${BASE_URL}/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: token,
     },
     body: JSON.stringify({
       id,

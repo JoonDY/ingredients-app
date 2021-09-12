@@ -1,11 +1,32 @@
-var express = require('express');
-var router = express.Router();
 const db = require('../db');
 
-router.get('/', async (req, res) => {
+const indexIngredient = async (req, res) => {
+  const userId = req.user.id;
   try {
     const results = await db.query(
-      'SELECT * FROM ingredients ORDER BY priority DESC'
+      'SELECT * FROM ingredients WHERE user_id = $1 ORDER BY priority DESC',
+      [userId]
+    );
+    res.status(200).json({
+      status: 'success',
+      results: results.rows.length,
+      data: {
+        ingredients: results.rows,
+      },
+    });
+  } catch (err) {
+    res.json({
+      error: err.detail,
+    });
+  }
+};
+
+const singleIngredient = async (req, res) => {
+  const userId = req.user.id;
+  try {
+    const results = await db.query(
+      'SELECT * FROM ingredients WHERE id = $1 AND user_id = $2',
+      [req.params.id, userId]
     );
     res.json({
       status: 'success',
@@ -19,33 +40,15 @@ router.get('/', async (req, res) => {
       error: err.detail,
     });
   }
-});
+};
 
-router.get('/:id', async (req, res) => {
-  try {
-    const results = await db.query('SELECT * FROM ingredients WHERE id = $1', [
-      req.params.id,
-    ]);
-    res.json({
-      status: 'success',
-      results: results.rows.length,
-      data: {
-        ingredients: results.rows,
-      },
-    });
-  } catch (err) {
-    res.json({
-      error: err.detail,
-    });
-  }
-});
-
-router.post('/', async (req, res) => {
+const createIngredient = async (req, res) => {
+  const userId = req.user.id;
   try {
     const { name, category, in_stock, priority } = req.body;
     const results = await db.query(
-      'INSERT INTO ingredients (name, category, in_stock, priority) VALUES ($1, $2, $3, $4) RETURNING *',
-      [name, category, in_stock, priority]
+      'INSERT INTO ingredients (name, category, in_stock, priority, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      [name, category, in_stock, priority, userId]
     );
     res.json({
       status: 'success',
@@ -59,15 +62,16 @@ router.post('/', async (req, res) => {
       err,
     });
   }
-});
+};
 
-router.put('/:id', async (req, res) => {
+const updateIngredient = async (req, res) => {
+  const userId = req.user.id;
   try {
     const { name, category, in_stock, priority } = req.body;
     const { id } = req.params;
     const results = await db.query(
-      'UPDATE ingredients SET name = $1, category = $2, in_stock = $3, priority = $4 WHERE id = $5 RETURNING *',
-      [name, category, in_stock, priority, id]
+      'UPDATE ingredients SET name = $1, category = $2, in_stock = $3, priority = $4 WHERE id = $5 AND user_id = $6 RETURNING *',
+      [name, category, in_stock, priority, id, userId]
     );
     res.json({
       status: 'success',
@@ -81,18 +85,26 @@ router.put('/:id', async (req, res) => {
       error: err.detail,
     });
   }
-});
+};
 
-router.delete('/:id', async (req, res) => {
+const deleteIngredient = async (req, res) => {
+  const userId = req.user.id;
   try {
-    const results = await db.query('DELETE FROM ingredients WHERE id = $1', [
-      req.params.id,
-    ]);
+    const results = await db.query(
+      'DELETE FROM ingredients WHERE id = $1 AND user_id = $2',
+      [req.params.id, userId]
+    );
   } catch (err) {
     res.json({
       error: err.detail,
     });
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  indexIngredient,
+  singleIngredient,
+  createIngredient,
+  updateIngredient,
+  deleteIngredient,
+};

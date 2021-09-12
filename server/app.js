@@ -1,4 +1,3 @@
-const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const passport = require('passport');
@@ -7,12 +6,15 @@ const logger = require('morgan');
 const cors = require('cors');
 require('dotenv').config();
 const mountRoutes = require('./routes');
+const PORT = process.env.PORT || '3001';
 
+// app init
 const app = express();
+app.listen(PORT, () => {
+  console.log(`Server started on Port ${PORT}`);
+});
 
-// view engine setup
-app.set('view engine', 'ejs');
-
+// passport
 require('./passport')(passport);
 app.use(passport.initialize());
 

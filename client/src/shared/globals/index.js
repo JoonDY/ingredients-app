@@ -78,7 +78,9 @@ export const Form = styled.form`
 export const ErrorMessage = styled.p`
   color: red;
   font-weight: 700;
-  font-size: 0.75rem;
+  font-size: 0.5rem;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
 `;
 
 export const ModalWrapper = styled.div`
