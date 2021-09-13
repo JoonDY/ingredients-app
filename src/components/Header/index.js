@@ -19,9 +19,9 @@ const Header = () => {
       {user && (
         <HeaderNav className="navbar">
           <UL className="nav-list">
-            <LI>Ingredients</LI>
+            {/* <LI>Ingredients</LI>
             <LI>Recipes</LI>
-            <LI>Shopping List</LI>
+            <LI>Shopping List</LI> */}
             <LI>
               <GrLogout className="logout-button" onClick={handleLogout} />
             </LI>

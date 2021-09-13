@@ -79,10 +79,12 @@ const Signup = () => {
         passwordConfirm,
         history
       );
-      console.log(res);
-      setErrors({
-        server: res,
-      });
+
+      if (res) {
+        setErrors({
+          server: res,
+        });
+      }
     } else return;
   };
 

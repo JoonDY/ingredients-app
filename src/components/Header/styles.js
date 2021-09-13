@@ -8,13 +8,13 @@ export const HeaderContainer = styled.header`
   padding: 1rem 0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  justify-content: space-between;
+  flex-direction: row;
   user-select: none;
   border-bottom: 2px solid ${theme.color.accent};
 
   @media (min-width: 1000px) {
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
     flex-direction: row;
   }
@@ -30,12 +30,12 @@ export const TitleH1 = styled(H1)`
 export const HeaderNav = styled(Nav)`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
+  align-items: flex-end;
   width: 95%;
 
   @media (min-width: 1000px) {
-    justify-content: flex-end;
+    justify-content: center;
     align-items: flex-end;
   }
 `;
@@ -43,7 +43,7 @@ export const HeaderNav = styled(Nav)`
 export const UL = styled.ul`
   font-size: 0.7rem;
   align-items: center;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
 
   @media (min-width: 1000px) {
     margin-top: 0;

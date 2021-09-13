@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3001/auth';
+const BASE_URL = 'https://my-cook-app.herokuapp.com/auth';
 
 export const postLogin = async (username, password, history) => {
   try {

@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3001/api/v1/ingredients';
+const BASE_URL = 'https://my-cook-app.herokuapp.com/api/v1/ingredients';
 
 export const getIngredients = async (setIngredients) => {
   const token = JSON.parse(localStorage.user);
