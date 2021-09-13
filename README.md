@@ -1,5 +1,7 @@
 ## Ingredients App
 
+Deployed site: [My Ingredient List](https://quizzical-yonath-3acedd.netlify.app)
+
 ### Concepts Used
 
 - React
