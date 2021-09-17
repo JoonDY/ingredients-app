@@ -17,12 +17,6 @@
   - Styled Components
   - Routing (Redirect, Private/Public Routes)
 
-- NodeJS (Express)
-  - API
-  - Routing
-  - Database (PostgreSQL)
-  - Authorization (Passport, Local, JWT)
-
 ### App Details
 
 - Inventory management for ingredients
